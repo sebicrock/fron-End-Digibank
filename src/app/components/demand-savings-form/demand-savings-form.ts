@@ -48,7 +48,7 @@ export class DemandSavingsForm implements OnInit {
   }
 
   cargarDatosCliente(clienteId: number) {
-    const apiUrl = `http://localhost:8080/bank/clientes/${clienteId}`;
+    const apiUrl = `https://digibank-backend.onrender.com/bank/clientes/${clienteId}`;
     this.http.get<any>(apiUrl).subscribe({
       next: (cliente) => {
         this.accountData.firstName = cliente.fullNames || '';
@@ -81,7 +81,7 @@ export class DemandSavingsForm implements OnInit {
       return;
     }
 
-    const apiUrl = 'http://localhost:8080/bank/CreateAccount';
+    const apiUrl = 'https://digibank-backend.onrender.com/bank/CreateAccount';
     const datosEnviar = {
       clienteId: this.clienteId,
       ...this.accountData,

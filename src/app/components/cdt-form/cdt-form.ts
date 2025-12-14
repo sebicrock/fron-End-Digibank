@@ -70,7 +70,7 @@ export class CdtForm implements OnInit {
   }
 
   cargarDatosCliente(clienteId: number) {
-    const apiUrl = `http://localhost:8080/bank/clientes/${clienteId}`;
+    const apiUrl = `https://digibank-backend.onrender.com/bank/clientes/${clienteId}`;
     this.http.get<any>(apiUrl).subscribe({
       next: (cliente) => {
         this.cdtData.firstName = cliente.fullNames || '';
@@ -167,7 +167,7 @@ export class CdtForm implements OnInit {
       return;
     }
 
-    const apiUrl = 'http://localhost:8080/bank/createCdts';
+    const apiUrl = 'https://digibank-backend.onrender.com/bank/clientes/createCdts';
     
     // Si usa la misma cuenta, copiar datos
     if (this.usarMismaCuenta || this.cdtData.interestPayment === 'VENCIMIENTO') {

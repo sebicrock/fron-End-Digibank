@@ -74,7 +74,7 @@ export class LoanRequestForm implements OnInit {
   }
 
   cargarDatosCliente(clienteId: number) {
-    const apiUrl = `http://localhost:8080/bank/clientes/${clienteId}`;
+    const apiUrl = `https://digibank-backend.onrender.com/bank/clientes/${clienteId}`;
     this.http.get<any>(apiUrl).subscribe({
       next: (cliente) => {
         this.loanData.firstName = cliente.fullNames || '';
@@ -132,7 +132,7 @@ export class LoanRequestForm implements OnInit {
       return;
     }
 
-    const apiUrl = 'http://localhost:8080/bank/createLoan';
+    const apiUrl = 'https://digibank-backend.onrender.com/bank/createLoan';
     const datosEnviar = {
       clienteId: this.clienteId,
       ...this.loanData,
