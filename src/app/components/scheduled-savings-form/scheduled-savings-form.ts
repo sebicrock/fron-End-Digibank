@@ -146,7 +146,7 @@ export class ScheduledSavingsForm implements OnInit {
       return;
     }
 
-    const apiUrl = 'https://digibank-backend.onrender.com/bank/clientes/createScheduledSavings';
+    const apiUrl = 'https://digibank-backend.onrender.com/bank/ahorro-programado/crear';
     const datosEnviar = {
       clienteId: this.clienteId,
       ...this.savingsData,
