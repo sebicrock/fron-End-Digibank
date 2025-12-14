@@ -9,8 +9,9 @@ import { LoginResponse } from "../model/login-response.model"; // ✅ importa el
 export class ClientService {
 
   private apiUrl = "https://digibank-backend.onrender.com/bank/createClient";
-  private apiUrlCuentaAhorros = "http://localhost:8080/bank/createCuentaAhorros";
-  private apiUrlLogin = "http://localhost:8080/bank/login"; // 🔹 define el endpoint del login
+  private apiUrlCuentaAhorros = "https://digibank-backend.onrender.com/bank/createCuentaAhorros";
+  private apiUrlLogin = "https://digibank-backend.onrender.com/bank/login";
+
 
   constructor(private http: HttpClient) {}
 
