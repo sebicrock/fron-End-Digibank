@@ -1,0 +1,780 @@
+<div class="form-page">
+  <div class="page-header">
+    <button class="back-btn" (click)="volver()">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Volver a mi perfil
+    </button>
+    
+    <div class="header-content">
+      <div class="header-icon">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 4H4C2.89 4 2.01 4.89 2.01 6L2 18C2 19.11 2.89 20 4 20H20C21.11 20 22 19.11 22 18V6C22 4.89 21.11 4 20 4ZM20 18H4V12H20V18ZM20 8H4V6H20V8Z" fill="currentColor"/>
+        </svg>
+      </div>
+      <div>
+        <h1>Solicitud de Tarjeta de Crédito</h1>
+        <p class="subtitle">Obtén tu tarjeta de crédito con grandes beneficios y cupo desde $500,000</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-container">
+    <!-- BANNER DE BENEFICIOS -->
+    <div class="info-banner">
+      <div class="info-icon">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V15H13V17ZM13 13H11V7H13V13Z" fill="currentColor"/>
+        </svg>
+      </div>
+      <div class="info-content">
+        <h3>Beneficios de tu Tarjeta de Crédito</h3>
+        <ul class="benefits-list">
+          <li>
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+            </svg>
+            <span>Sin cuota de manejo el primer año</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+            </svg>
+            <span>Hasta 2% de cashback en compras</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+            </svg>
+            <span>Meses sin intereses en comercios aliados</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+            </svg>
+            <span>Acceso a lounges VIP en aeropuertos</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <form (ngSubmit)="onSubmit()" #cardForm="ngForm">
+      
+      <!-- SECCIÓN: DATOS PERSONALES -->
+      <div class="form-section">
+        <h2 class="section-title">
+          <div class="title-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z" fill="currentColor"/>
+            </svg>
+          </div>
+          <span>Datos Personales</span>
+        </h2>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName">Nombres <span class="required">*</span></label>
+            <input 
+              type="text" 
+              id="firstName" 
+              name="firstName"
+              [(ngModel)]="cardData.firstName"
+              placeholder="Ingrese sus nombres"
+              required
+              #firstName="ngModel"
+            >
+            <small class="error-hint" *ngIf="firstName.invalid && firstName.touched">
+              Este campo es obligatorio
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="lastName">Apellidos <span class="required">*</span></label>
+            <input 
+              type="text" 
+              id="lastName" 
+              name="lastName"
+              [(ngModel)]="cardData.lastName"
+              placeholder="Ingrese sus apellidos"
+              required
+              #lastName="ngModel"
+            >
+            <small class="error-hint" *ngIf="lastName.invalid && lastName.touched">
+              Este campo es obligatorio
+            </small>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="documentType">Tipo de Documento <span class="required">*</span></label>
+            <select 
+              id="documentType" 
+              name="documentType"
+              [(ngModel)]="cardData.documentType"
+              required
+              #documentType="ngModel"
+            >
+              <option value="">Seleccione...</option>
+              <option value="CC">Cédula de Ciudadanía</option>
+              <option value="CE">Cédula de Extranjería</option>
+              <option value="PAS">Pasaporte</option>
+            </select>
+            <small class="error-hint" *ngIf="documentType.invalid && documentType.touched">
+              Debe seleccionar un tipo
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="documentNumber">Número de Documento <span class="required">*</span></label>
+            <input 
+              type="text" 
+              id="documentNumber" 
+              name="documentNumber"
+              [(ngModel)]="cardData.documentNumber"
+              placeholder="Ej: 1234567890"
+              required
+              pattern="[0-9]+"
+              #documentNumber="ngModel"
+            >
+            <small class="error-hint" *ngIf="documentNumber.invalid && documentNumber.touched">
+              Solo números permitidos
+            </small>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="birthDate">Fecha de Nacimiento <span class="required">*</span></label>
+            <input 
+              type="date" 
+              id="birthDate" 
+              name="birthDate"
+              [(ngModel)]="cardData.birthDate"
+              [max]="maxBirthDate"
+              required
+              #birthDate="ngModel"
+            >
+            <small class="input-hint" *ngIf="birthDate.valid">Debe ser mayor de 18 años</small>
+            <small class="error-hint" *ngIf="birthDate.invalid && birthDate.touched">
+              Este campo es obligatorio
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="gender">Género <span class="required">*</span></label>
+            <select 
+              id="gender" 
+              name="gender"
+              [(ngModel)]="cardData.gender"
+              required
+              #gender="ngModel"
+            >
+              <option value="">Seleccione...</option>
+              <option value="M">Masculino</option>
+              <option value="F">Femenino</option>
+              <option value="O">Otro</option>
+            </select>
+            <small class="error-hint" *ngIf="gender.invalid && gender.touched">
+              Debe seleccionar un género
+            </small>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">Correo Electrónico <span class="required">*</span></label>
+            <input 
+              type="email" 
+              id="email" 
+              name="email"
+              [(ngModel)]="cardData.email"
+              placeholder="correo@ejemplo.com"
+              required
+              email
+              #email="ngModel"
+            >
+            <small class="error-hint" *ngIf="email.invalid && email.touched">
+              Ingrese un correo válido
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Teléfono Celular <span class="required">*</span></label>
+            <input 
+              type="tel" 
+              id="phone" 
+              name="phone"
+              [(ngModel)]="cardData.phone"
+              placeholder="3001234567"
+              required
+              pattern="[0-9]{10}"
+              #phone="ngModel"
+            >
+            <small class="error-hint" *ngIf="phone.invalid && phone.touched">
+              Ingrese 10 dígitos
+            </small>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group full-width">
+            <label for="address">Dirección de Residencia <span class="required">*</span></label>
+            <input 
+              type="text" 
+              id="address" 
+              name="address"
+              [(ngModel)]="cardData.address"
+              placeholder="Calle 123 # 45-67"
+              required
+              #address="ngModel"
+            >
+            <small class="error-hint" *ngIf="address.invalid && address.touched">
+              Este campo es obligatorio
+            </small>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="city">Ciudad <span class="required">*</span></label>
+            <input 
+              type="text" 
+              id="city" 
+              name="city"
+              [(ngModel)]="cardData.city"
+              placeholder="Bogotá"
+              required
+              #city="ngModel"
+            >
+            <small class="error-hint" *ngIf="city.invalid && city.touched">
+              Este campo es obligatorio
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="maritalStatus">Estado Civil <span class="required">*</span></label>
+            <select 
+              id="maritalStatus" 
+              name="maritalStatus"
+              [(ngModel)]="cardData.maritalStatus"
+              required
+              #maritalStatus="ngModel"
+            >
+              <option value="">Seleccione...</option>
+              <option value="SOLTERO">Soltero(a)</option>
+              <option value="CASADO">Casado(a)</option>
+              <option value="UNION_LIBRE">Unión Libre</option>
+              <option value="DIVORCIADO">Divorciado(a)</option>
+              <option value="VIUDO">Viudo(a)</option>
+            </select>
+            <small class="error-hint" *ngIf="maritalStatus.invalid && maritalStatus.touched">
+              Seleccione su estado civil
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECCIÓN: TIPO DE TARJETA -->
+      <div class="form-section">
+        <h2 class="section-title">
+          <div class="title-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20 4H4C2.89 4 2.01 4.89 2.01 6L2 18C2 19.11 2.89 20 4 20H20C21.11 20 22 19.11 22 18V6C22 4.89 21.11 4 20 4ZM20 18H4V12H20V18ZM20 8H4V6H20V8Z" fill="currentColor"/>
+            </svg>
+          </div>
+          <span>Elige tu Tarjeta</span>
+        </h2>
+
+        <div class="card-types">
+          <label class="card-type-option" [class.selected]="cardData.cardType === 'CLASICA'">
+            <input type="radio" name="cardType" value="CLASICA" [(ngModel)]="cardData.cardType" required (change)="calcularCupoEstimado()">
+            <div class="card-content">
+              <div class="card-badge">💳</div>
+              <h3>Tarjeta Clásica</h3>
+              <p class="card-description">Perfecta para tus compras del día a día</p>
+              <ul class="card-features">
+                <li>Cupo desde $500,000</li>
+                <li>Tasa desde 2.1% mensual</li>
+                <li>1% cashback en compras</li>
+                <li>Sin cuota de manejo 1er año</li>
+              </ul>
+              <span class="price-badge">Gratis</span>
+            </div>
+          </label>
+
+          <label class="card-type-option" [class.selected]="cardData.cardType === 'ORO'">
+            <input type="radio" name="cardType" value="ORO" [(ngModel)]="cardData.cardType" (change)="calcularCupoEstimado()">
+            <div class="card-content">
+              <div class="card-badge gold">🏆</div>
+              <h3>Tarjeta Oro</h3>
+              <p class="card-description">Más beneficios y cupo preferencial</p>
+              <ul class="card-features">
+                <li>Cupo desde $2,000,000</li>
+                <li>Tasa desde 1.9% mensual</li>
+                <li>1.5% cashback en compras</li>
+                <li>Seguros de viaje incluidos</li>
+              </ul>
+              <span class="price-badge gold">$50,000/año</span>
+            </div>
+          </label>
+
+          <label class="card-type-option" [class.selected]="cardData.cardType === 'PLATINUM'">
+            <input type="radio" name="cardType" value="PLATINUM" [(ngModel)]="cardData.cardType" (change)="calcularCupoEstimado()">
+            <div class="card-content">
+              <div class="card-badge platinum">💎</div>
+              <h3>Tarjeta Platinum</h3>
+              <p class="card-description">Experiencia premium con beneficios exclusivos</p>
+              <ul class="card-features">
+                <li>Cupo desde $5,000,000</li>
+                <li>Tasa desde 1.7% mensual</li>
+                <li>2% cashback en compras</li>
+                <li>Concierge 24/7 y lounges VIP</li>
+              </ul>
+              <span class="price-badge platinum">$150,000/año</span>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- SECCIÓN: INFORMACIÓN LABORAL -->
+      <div class="form-section">
+        <h2 class="section-title">
+          <div class="title-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20 6H16V4C16 2.89 15.11 2 14 2H10C8.89 2 8 2.89 8 4V6H4C2.89 6 2.01 6.89 2.01 8L2 19C2 20.11 2.89 21 4 21H20C21.11 21 22 20.11 22 19V8C22 6.89 21.11 6 20 6ZM14 6H10V4H14V6Z" fill="currentColor"/>
+            </svg>
+          </div>
+          <span>Información Laboral y Financiera</span>
+        </h2>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="employmentType">Tipo de empleo <span class="required">*</span></label>
+            <select 
+              id="employmentType" 
+              name="employmentType"
+              [(ngModel)]="cardData.employmentType"
+              required
+              #employmentType="ngModel"
+            >
+              <option value="">Seleccione...</option>
+              <option value="EMPLEADO">Empleado</option>
+              <option value="INDEPENDIENTE">Trabajador Independiente</option>
+              <option value="EMPRESARIO">Empresario</option>
+              <option value="PENSIONADO">Pensionado</option>
+            </select>
+            <small class="error-hint" *ngIf="employmentType.invalid && employmentType.touched">
+              Seleccione su tipo de empleo
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="occupation">Ocupación/Profesión <span class="required">*</span></label>
+            <input 
+              type="text" 
+              id="occupation" 
+              name="occupation"
+              [(ngModel)]="cardData.occupation"
+              placeholder="Ej: Ingeniero, Contador"
+              required
+              #occupation="ngModel"
+            >
+            <small class="error-hint" *ngIf="occupation.invalid && occupation.touched">
+              Este campo es obligatorio
+            </small>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="companyName">Empresa/Empleador <span class="required">*</span></label>
+            <input 
+              type="text" 
+              id="companyName" 
+              name="companyName"
+              [(ngModel)]="cardData.companyName"
+              placeholder="Nombre de la empresa"
+              required
+              #companyName="ngModel"
+            >
+            <small class="error-hint" *ngIf="companyName.invalid && companyName.touched">
+              Este campo es obligatorio
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="timeInJob">Antigüedad laboral <span class="required">*</span></label>
+            <select 
+              id="timeInJob" 
+              name="timeInJob"
+              [(ngModel)]="cardData.timeInJob"
+              required
+              #timeInJob="ngModel"
+            >
+              <option value="">Seleccione...</option>
+              <option value="0-6">Menos de 6 meses</option>
+              <option value="6-12">6 a 12 meses</option>
+              <option value="12-24">1 a 2 años</option>
+              <option value="24-60">2 a 5 años</option>
+              <option value="60+">Más de 5 años</option>
+            </select>
+            <small class="error-hint" *ngIf="timeInJob.invalid && timeInJob.touched">
+              Seleccione la antigüedad
+            </small>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="monthlyIncome">Ingresos mensuales <span class="required">*</span></label>
+            <div class="input-with-icon">
+              <span class="currency">$</span>
+              <input 
+                type="number" 
+                id="monthlyIncome" 
+                name="monthlyIncome"
+                [(ngModel)]="cardData.monthlyIncome"
+                placeholder="3000000"
+                min="1300000"
+                required
+                #monthlyIncome="ngModel"
+                (input)="calcularCupoEstimado()"
+              >
+            </div>
+            <small class="input-hint" *ngIf="monthlyIncome.valid">Ingreso mínimo: 1 SMMLV</small>
+            <small class="error-hint" *ngIf="monthlyIncome.invalid && monthlyIncome.touched">
+              Ingrese sus ingresos mensuales
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="monthlyExpenses">Gastos mensuales aproximados <span class="required">*</span></label>
+            <div class="input-with-icon">
+              <span class="currency">$</span>
+              <input 
+                type="number" 
+                id="monthlyExpenses" 
+                name="monthlyExpenses"
+                [(ngModel)]="cardData.monthlyExpenses"
+                placeholder="1500000"
+                min="0"
+                required
+                #monthlyExpenses="ngModel"
+              >
+            </div>
+            <small class="error-hint" *ngIf="monthlyExpenses.invalid && monthlyExpenses.touched">
+              Ingrese sus gastos mensuales
+            </small>
+          </div>
+        </div>
+
+        <!-- ESTIMACIÓN DE CUPO -->
+        <div class="cupo-summary" *ngIf="cupoEstimado > 0">
+          <div class="cupo-icon">🎯</div>
+          <div class="cupo-content">
+            <h4>Cupo Estimado</h4>
+            <p class="cupo-amount">${{ cupoEstimado | number:'1.0-0' }} COP</p>
+            <p class="cupo-disclaimer">* Sujeto a aprobación del análisis crediticio</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECCIÓN: INFORMACIÓN FINANCIERA ADICIONAL -->
+      <div class="form-section">
+        <h2 class="section-title">
+          <div class="title-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19 14V6C19 4.9 18.1 4 17 4H3C1.9 4 1 4.9 1 6V14C1 15.1 1.9 16 3 16H17C18.1 16 19 15.1 19 14ZM10 13C7.79 13 6 11.21 6 9C6 6.79 7.79 5 10 5C12.21 5 14 6.79 14 9C14 11.21 12.21 13 10 13ZM23 7V18C23 19.1 22.1 20 21 20H4C4 18.9 4.9 18 6 18H21V7C22.1 7 23 7.9 23 7Z" fill="currentColor"/>
+            </svg>
+          </div>
+          <span>Información Financiera</span>
+        </h2>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="hasCreditCards">¿Tiene otras tarjetas de crédito? <span class="required">*</span></label>
+            <select 
+              id="hasCreditCards" 
+              name="hasCreditCards"
+              [(ngModel)]="cardData.hasCreditCards"
+              required
+              #hasCreditCards="ngModel"
+            >
+              <option value="">Seleccione...</option>
+              <option value="SI">Sí</option>
+              <option value="NO">No</option>
+            </select>
+            <small class="error-hint" *ngIf="hasCreditCards.invalid && hasCreditCards.touched">
+              Seleccione una opción
+            </small>
+          </div>
+
+          <div class="form-group" *ngIf="cardData.hasCreditCards === 'SI'">
+            <label for="totalCreditLimit">Cupo total en otras tarjetas</label>
+            <div class="input-with-icon">
+              <span class="currency">$</span>
+              <input 
+                type="number" 
+                id="totalCreditLimit" 
+                name="totalCreditLimit"
+                [(ngModel)]="cardData.totalCreditLimit"
+                placeholder="5000000"
+                min="0"
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="hasLoans">¿Tiene créditos activos? <span class="required">*</span></label>
+            <select 
+              id="hasLoans" 
+              name="hasLoans"
+              [(ngModel)]="cardData.hasLoans"
+              required
+              #hasLoans="ngModel"
+            >
+              <option value="">Seleccione...</option>
+              <option value="SI">Sí</option>
+              <option value="NO">No</option>
+            </select>
+            <small class="error-hint" *ngIf="hasLoans.invalid && hasLoans.touched">
+              Seleccione una opción
+            </small>
+          </div>
+
+          <div class="form-group" *ngIf="cardData.hasLoans === 'SI'">
+            <label for="monthlyLoanPayment">Cuota mensual de créditos</label>
+            <div class="input-with-icon">
+              <span class="currency">$</span>
+              <input 
+                type="number" 
+                id="monthlyLoanPayment" 
+                name="monthlyLoanPayment"
+                [(ngModel)]="cardData.monthlyLoanPayment"
+                placeholder="500000"
+                min="0"
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group full-width">
+            <label for="bankReference">Banco de referencia <span class="required">*</span></label>
+            <select 
+              id="bankReference" 
+              name="bankReference"
+              [(ngModel)]="cardData.bankReference"
+              required
+              #bankReference="ngModel"
+            >
+              <option value="">Seleccione...</option>
+              <option value="BANCOLOMBIA">Bancolombia</option>
+              <option value="BANCO_BOGOTA">Banco de Bogotá</option>
+              <option value="DAVIVIENDA">Davivienda</option>
+              <option value="BBVA">BBVA Colombia</option>
+              <option value="SCOTIABANK">Scotiabank Colpatria</option>
+              <option value="BANCO_CAJA_SOCIAL">Banco Caja Social</option>
+              <option value="BANCO_POPULAR">Banco Popular</option>
+              <option value="BANCO_OCCIDENTE">Banco de Occidente</option>
+              <option value="OTRO">Otro</option>
+            </select>
+            <small class="input-hint" *ngIf="bankReference.valid">Banco donde mantiene su cuenta principal</small>
+            <small class="error-hint" *ngIf="bankReference.invalid && bankReference.touched">
+              Seleccione un banco
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECCIÓN: REFERENCIAS -->
+      <div class="form-section">
+        <h2 class="section-title">
+          <div class="title-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16 11C17.66 11 18.99 9.66 18.99 8C18.99 6.34 17.66 5 16 5C14.34 5 13 6.34 13 8C13 9.66 14.34 11 16 11ZM8 11C9.66 11 10.99 9.66 10.99 8C10.99 6.34 9.66 5 8 5C6.34 5 5 6.34 5 8C5 9.66 6.34 11 8 11ZM8 13C5.67 13 1 14.17 1 16.5V19H15V16.5C15 14.17 10.33 13 8 13ZM16 13C15.71 13 15.38 13.02 15.03 13.05C16.19 13.89 17 15.02 17 16.5V19H23V16.5C23 14.17 18.33 13 16 13Z" fill="currentColor"/>
+            </svg>
+          </div>
+          <span>Referencia Personal</span>
+        </h2>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="referenceName">Nombre completo <span class="required">*</span></label>
+            <input 
+              type="text" 
+              id="referenceName" 
+              name="referenceName"
+              [(ngModel)]="cardData.referenceName"
+              placeholder="Nombre de la referencia"
+              required
+              #referenceName="ngModel"
+            >
+            <small class="error-hint" *ngIf="referenceName.invalid && referenceName.touched">
+              Este campo es obligatorio
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="referencePhone">Teléfono <span class="required">*</span></label>
+            <input 
+              type="tel" 
+              id="referencePhone" 
+              name="referencePhone"
+              [(ngModel)]="cardData.referencePhone"
+              placeholder="3001234567"
+              required
+              pattern="[0-9]{10}"
+              #referencePhone="ngModel"
+            >
+            <small class="error-hint" *ngIf="referencePhone.invalid && referencePhone.touched">
+              Ingrese 10 dígitos
+            </small>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group full-width">
+            <label for="referenceRelationship">Parentesco/Relación <span class="required">*</span></label>
+            <input 
+              type="text" 
+              id="referenceRelationship" 
+              name="referenceRelationship"
+              [(ngModel)]="cardData.referenceRelationship"
+              placeholder="Ej: Amigo, Familiar, Compañero de trabajo"
+              required
+              #referenceRelationship="ngModel"
+            >
+            <small class="error-hint" *ngIf="referenceRelationship.invalid && referenceRelationship.touched">
+              Este campo es obligatorio
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECCIÓN: CONFIGURACIÓN DE LA TARJETA -->
+      <div class="form-section">
+        <h2 class="section-title">
+          <div class="title-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19.43 12.98C19.47 12.66 19.5 12.34 19.5 12C19.5 11.66 19.47 11.34 19.43 11.02L21.54 9.37C21.73 9.22 21.78 8.95 21.66 8.73L19.66 5.27C19.54 5.05 19.27 4.97 19.05 5.05L16.56 6.05C16.04 5.65 15.48 5.32 14.87 5.07L14.49 2.42C14.46 2.18 14.25 2 14 2H10C9.75 2 9.54 2.18 9.51 2.42L9.13 5.07C8.52 5.32 7.96 5.66 7.44 6.05L4.95 5.05C4.72 4.96 4.46 5.05 4.34 5.27L2.34 8.73C2.21 8.95 2.27 9.22 2.46 9.37L4.57 11.02C4.53 11.34 4.5 11.67 4.5 12C4.5 12.33 4.53 12.66 4.57 12.98L2.46 14.63C2.27 14.78 2.22 15.05 2.34 15.27L4.34 18.73C4.46 18.95 4.73 19.03 4.95 18.95L7.44 17.95C7.96 18.35 8.52 18.68 9.13 18.93L9.51 21.58C9.54 21.82 9.75 22 10 22H14C14.25 22 14.46 21.82 14.49 21.58L14.87 18.93C15.48 18.68 16.04 18.34 16.56 17.95L19.05 18.95C19.28 19.04 19.54 18.95 19.66 18.73L21.66 15.27C21.78 15.05 21.73 14.78 21.54 14.63L19.43 12.98ZM12 15.5C10.07 15.5 8.5 13.93 8.5 12C8.5 10.07 10.07 8.5 12 8.5C13.93 8.5 15.5 10.07 15.5 12C15.5 13.93 13.93 15.5 12 15.5Z" fill="currentColor"/>
+            </svg>
+          </div>
+          <span>Configuración y Preferencias</span>
+        </h2>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="cardDesign">Diseño de tarjeta</label>
+            <select 
+              id="cardDesign" 
+              name="cardDesign"
+              [(ngModel)]="cardData.cardDesign"
+            >
+              <option value="ESTANDAR">Diseño Estándar</option>
+              <option value="PERSONALIZADO_1">Diseño Paisaje</option>
+              <option value="PERSONALIZADO_2">Diseño Urbano</option>
+              <option value="PERSONALIZADO_3">Diseño Abstracto</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="deliveryAddress">Dirección de entrega</label>
+            <select 
+              id="deliveryAddress" 
+              name="deliveryAddress"
+              [(ngModel)]="cardData.deliveryAddress"
+            >
+              <option value="RESIDENCIA">Dirección de residencia</option>
+              <option value="TRABAJO">Dirección de trabajo</option>
+              <option value="OFICINA">Oficina del banco</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="checkbox-row">
+          <label class="checkbox-label" [class.active]="cardData.emailNotifications">
+            <input type="checkbox" name="emailNotif" [(ngModel)]="cardData.emailNotifications" checked>
+            <div class="checkbox-box">
+              <svg *ngIf="cardData.emailNotifications" viewBox="0 0 24 24" fill="none">
+                <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+              </svg>
+            </div>
+            <span>Notificaciones por email</span>
+          </label>
+          
+          <label class="checkbox-label" [class.active]="cardData.smsNotifications">
+            <input type="checkbox" name="smsNotif" [(ngModel)]="cardData.smsNotifications" checked>
+            <div class="checkbox-box">
+              <svg *ngIf="cardData.smsNotifications" viewBox="0 0 24 24" fill="none">
+                <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+              </svg>
+            </div>
+            <span>Notificaciones por SMS</span>
+          </label>
+
+          <label class="checkbox-label" [class.active]="cardData.digitalCard">
+            <input type="checkbox" name="digitalCard" [(ngModel)]="cardData.digitalCard">
+            <div class="checkbox-box">
+              <svg *ngIf="cardData.digitalCard" viewBox="0 0 24 24" fill="none">
+                <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+              </svg>
+            </div>
+            <span>Tarjeta digital inmediata</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- TÉRMINOS Y CONDICIONES -->
+      <div class="terms-section">
+        <label class="terms-checkbox">
+          <input type="checkbox" name="terms" [(ngModel)]="cardData.acceptTerms" required #terms="ngModel">
+          <div class="terms-content">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+            </svg>
+            <span>Acepto los <a href="#" (click)="$event.preventDefault()">términos y condiciones</a> de la tarjeta de crédito, autorizo la consulta en centrales de riesgo y acepto que la información suministrada es veraz <span class="required">*</span></span>
+          </div>
+        </label>
+        <small class="error-hint" *ngIf="terms.invalid && terms.touched">
+          Debe aceptar los términos para continuar
+        </small>
+      </div>
+
+      <!-- MENSAJE DE RESPUESTA -->
+      <div *ngIf="mensaje" class="alert" [class.alert-success]="mensajeTipo === 'success'" [class.alert-error]="mensajeTipo === 'error'">
+        <svg *ngIf="mensajeTipo === 'success'" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+        </svg>
+        <svg *ngIf="mensajeTipo === 'error'" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V15H13V17ZM13 13H11V7H13V13Z" fill="currentColor"/>
+        </svg>
+        <span>{{ mensaje }}</span>
+      </div>
+
+      <!-- BOTONES DE ACCIÓN -->
+      <div class="form-actions">
+        <button type="button" class="btn-secondary" (click)="volver()">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z" fill="currentColor"/>
+          </svg>
+          <span>Cancelar</span>
+        </button>
+        <button type="submit" class="btn-primary" [disabled]="!cardForm.valid || isSubmitting">
+          <span *ngIf="!isSubmitting">Solicitar Tarjeta</span>
+          <span *ngIf="isSubmitting" class="loading-content">
+            <div class="spinner"></div>
+            Procesando...
+          </span>
+          <svg *ngIf="!isSubmitting" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 5L16 12L9 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

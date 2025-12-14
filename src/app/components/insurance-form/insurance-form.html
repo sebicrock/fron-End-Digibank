@@ -1,0 +1,422 @@
+<div class="insurance-wrapper">
+  <div class="insurance-container">
+    <!-- HEADER -->
+    <div class="insurance-header">
+      <button class="btn-back" (click)="volver()">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Volver
+      </button>
+      <div class="header-content">
+        <div class="header-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 1L3 5V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V5L12 1ZM12 11.99H19C18.47 16.11 15.72 19.78 12 20.93V12H5V6.3L12 3.19V11.99Z" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="header-text">
+          <h1>Seguros</h1>
+          <p>Protege lo que más quieres con nuestros planes de seguros</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- MENSAJES DE ALERTA -->
+    <div *ngIf="mensajeExito" class="alert alert-success">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+      </svg>
+      <div class="alert-content">
+        <strong>¡Solicitud exitosa!</strong>
+        <p>{{ mensajeExito }}</p>
+      </div>
+    </div>
+
+    <div *ngIf="mensajeError" class="alert alert-error">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V15H13V17ZM13 13H11V7H13V13Z" fill="currentColor"/>
+      </svg>
+      <div class="alert-content">
+        <strong>Error</strong>
+        <p>{{ mensajeError }}</p>
+      </div>
+    </div>
+
+    <!-- TABS DE NAVEGACIÓN -->
+    <div class="tabs-container">
+      <button class="tab-btn" [class.active]="vistaActual === 'planes'" (click)="cambiarVista('planes')">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 1L3 5V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V5L12 1Z" fill="currentColor"/>
+        </svg>
+        Planes Disponibles
+      </button>
+      <!-- <button class="tab-btn" [class.active]="vistaActual === 'misseguros'" (click)="cambiarVista('miseguros')"> 
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 11H7V13H9V11ZM13 11H11V13H13V11ZM17 11H15V13H17V11ZM19 4H18V2H16V4H8V2H6V4H5C3.89 4 3 4.9 3 6V20C3 21.1 3.89 22 5 22H19C20.1 22 21 21.1 21 20V6C21 4.9 20.1 4 19 4ZM19 20H5V9H19V20Z" fill="currentColor"/>
+        </svg>
+        Mis Seguros
+      </button>-->
+      <button class="tab-btn" [class.active]="vistaActual === 'siniestros'" (click)="cambiarVista('siniestros')">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2ZM13 14H11V12H13V14ZM13 10H11V6H13V10Z" fill="currentColor"/>
+        </svg>
+        Siniestros
+      </button>
+    </div>
+
+    <!-- VISTA: PLANES DISPONIBLES -->
+    <div *ngIf="vistaActual === 'planes'">
+      <!-- Filtros -->
+      <div class="filters-section">
+        <div class="section-title">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 18H14V16H10V18ZM3 6V8H21V6H3ZM6 13H18V11H6V13Z" fill="currentColor"/>
+          </svg>
+          <h2>Categorías de Seguros</h2>
+        </div>
+
+        <div class="categories-grid">
+          <button *ngFor="let categoria of categorias" 
+                  class="category-btn"
+                  [class.active]="categoriaSeleccionada === categoria.id"
+                  (click)="filtrarPorCategoria(categoria.id)">
+            <div class="category-icon" [class]="'icon-' + categoria.color">
+              <div [innerHTML]="categoria.icono"></div>
+            </div>
+            <span>{{ categoria.nombre }}</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Planes de Seguros -->
+      <div class="plans-section">
+        <div class="section-title">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM19 19H5V5H19V19Z" fill="currentColor"/>
+          </svg>
+          <h2>{{ categoriaSeleccionada === 'all' ? 'Todos los Planes' : getCategoriaActual()?.nombre }}</h2>
+        </div>
+
+        <div *ngIf="cargandoPlanes" class="loading-state">
+          <div class="spinner"></div>
+          <p>Cargando planes de seguros...</p>
+        </div>
+
+        <div *ngIf="!cargandoPlanes && planesFiltrados.length === 0" class="empty-state">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V15H13V17ZM13 13H11V7H13V13Z" fill="currentColor"/>
+          </svg>
+          <p>No hay planes disponibles en esta categoría</p>
+        </div>
+
+        <div class="plans-grid">
+          <div *ngFor="let plan of planesFiltrados" class="plan-card" [class.featured]="plan.destacado">
+            <div class="plan-badge" *ngIf="plan.destacado">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" fill="currentColor"/>
+              </svg>
+              Recomendado
+            </div>
+            
+            <div class="plan-header">
+              <div class="plan-icon" [class]="'icon-' + plan.color">
+                <div [innerHTML]="plan.icono"></div>
+              </div>
+              <div class="plan-title-section">
+                <h3>{{ plan.nombre }}</h3>
+                <p class="plan-category">{{ plan.categoria }}</p>
+              </div>
+            </div>
+
+            <p class="plan-description">{{ plan.descripcion }}</p>
+
+            <div class="plan-price">
+              <span class="price-amount">{{ plan.precioMensual | currency:'COP':'symbol-narrow':'1.0-0' }}</span>
+              <span class="price-period">/mes</span>
+            </div>
+
+            <div class="plan-features">
+              <div class="feature-item" *ngFor="let cobertura of plan.coberturas">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+                </svg>
+                <span>{{ cobertura }}</span>
+              </div>
+            </div>
+
+            <div class="plan-details">
+              <div class="detail-row">
+                <span class="detail-label">Cobertura máxima:</span>
+                <span class="detail-value">{{ plan.coberturaMaxima | currency:'COP':'symbol-narrow':'1.0-0' }}</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Deducible:</span>
+                <span class="detail-value">{{ plan.deducible }}%</span>
+              </div>
+            </div>
+
+            <button class="btn btn-plan" (click)="seleccionarPlan(plan)">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+              </svg>
+              Contratar Ahora
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VISTA: MIS SEGUROS -->
+    <div *ngIf="vistaActual === 'miseguros'">
+      <div class="form-section">
+        <div class="section-title">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 1L3 5V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V5L12 1Z" fill="currentColor"/>
+          </svg>
+          <h2>Mis Seguros Contratados</h2>
+        </div>
+
+        <div *ngIf="cargandoMisSeguros" class="loading-state">
+          <div class="spinner"></div>
+          <p>Cargando tus seguros...</p>
+        </div>
+
+        <div *ngIf="!cargandoMisSeguros && misSeguros.length === 0" class="empty-state">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 1L3 5V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V5L12 1Z" fill="currentColor"/>
+          </svg>
+          <p>No tienes seguros contratados</p>
+          <button class="btn btn-primary" (click)="cambiarVista('planes')">
+            Ver Planes Disponibles
+          </button>
+        </div>
+
+        <div class="insurance-list">
+          <div *ngFor="let seguro of misSeguros" class="insurance-item">
+            <div class="insurance-status" [class]="seguro.estado.toLowerCase()">
+              <div class="status-dot"></div>
+              <span>{{ seguro.estado }}</span>
+            </div>
+
+            <div class="insurance-content">
+              <div class="insurance-header-info">
+                <div class="insurance-icon-wrapper" [class]="'icon-' + seguro.color">
+                  <div [innerHTML]="seguro.icono"></div>
+                </div>
+                <div class="insurance-main-info">
+                  <h3>{{ seguro.nombre }}</h3>
+                  <p class="insurance-category">{{ seguro.categoria }}</p>
+                  <p class="insurance-policy">Póliza: {{ seguro.numeroPoliza }}</p>
+                </div>
+              </div>
+
+              <div class="insurance-details-grid">
+                <div class="insurance-detail">
+                  <span class="detail-label">Fecha de inicio:</span>
+                  <span class="detail-value">{{ seguro.fechaInicio | date:'dd/MM/yyyy' }}</span>
+                </div>
+                <div class="insurance-detail">
+                  <span class="detail-label">Vencimiento:</span>
+                  <span class="detail-value">{{ seguro.fechaVencimiento | date:'dd/MM/yyyy' }}</span>
+                </div>
+                <div class="insurance-detail">
+                  <span class="detail-label">Prima mensual:</span>
+                  <span class="detail-value">{{ seguro.primaMensual | currency:'COP':'symbol-narrow':'1.0-0' }}</span>
+                </div>
+                <div class="insurance-detail">
+                  <span class="detail-label">Cobertura:</span>
+                  <span class="detail-value">{{ seguro.coberturaMaxima | currency:'COP':'symbol-narrow':'1.0-0' }}</span>
+                </div>
+              </div>
+
+              <div class="insurance-progress" *ngIf="seguro.estado === 'Activo'">
+                <div class="progress-info">
+                  <span>Cobertura utilizada</span>
+                  <span class="progress-percentage">{{ calcularPorcentajeUtilizado(seguro) }}%</span>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress-fill" [style.width.%]="calcularPorcentajeUtilizado(seguro)"></div>
+                </div>
+              </div>
+
+              <div class="insurance-actions">
+                <button class="btn-action btn-primary-outline" (click)="verDetalleSeguro(seguro)">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 4.5C7 4.5 2.73 7.61 1 12C2.73 16.39 7 19.5 12 19.5C17 19.5 21.27 16.39 23 12C21.27 7.61 17 4.5 12 4.5ZM12 17C9.24 17 7 14.76 7 12C7 9.24 9.24 7 12 7C14.76 7 17 9.24 17 12C17 14.76 14.76 17 12 17ZM12 9C10.34 9 9 10.34 9 12C9 13.66 10.34 15 12 15C13.66 15 15 13.66 15 12C15 10.34 13.66 9 12 9Z" fill="currentColor"/>
+                  </svg>
+                  Ver Detalles
+                </button>
+                <button class="btn-action btn-secondary-outline" (click)="reportarSiniestro(seguro)" *ngIf="seguro.estado === 'Activo'">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2ZM13 14H11V12H13V14ZM13 10H11V6H13V10Z" fill="currentColor"/>
+                  </svg>
+                  Reportar Siniestro
+                </button>
+                <button class="btn-action btn-danger-outline" (click)="cancelarSeguro(seguro.id)" *ngIf="seguro.estado === 'Activo'">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z" fill="currentColor"/>
+                  </svg>
+                  Cancelar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VISTA: SINIESTROS -->
+    <div *ngIf="vistaActual === 'siniestros'">
+      <div class="form-section">
+        <div class="section-title">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2Z" fill="currentColor"/>
+          </svg>
+          <h2>Historial de Siniestros</h2>
+        </div>
+
+        <div *ngIf="siniestros.length === 0" class="empty-state">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+          </svg>
+          <p>No tienes siniestros registrados</p>
+        </div>
+
+        <div class="claims-timeline">
+          <div *ngFor="let siniestro of siniestros" class="claim-item">
+            <div class="claim-timeline-marker" [class]="siniestro.estado.toLowerCase()"></div>
+            <div class="claim-content">
+              <div class="claim-header">
+                <div class="claim-title">
+                  <h4>{{ siniestro.tipoSeguro }}</h4>
+                  <span class="claim-number">Caso #{{ siniestro.numeroCaso }}</span>
+                </div>
+                <span class="claim-status" [class]="'status-' + siniestro.estado.toLowerCase()">
+                  {{ siniestro.estado }}
+                </span>
+              </div>
+              
+              <p class="claim-description">{{ siniestro.descripcion }}</p>
+              
+              <div class="claim-details">
+                <div class="claim-info-item">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19 3H18V1H16V3H8V1H6V3H5C3.89 3 3 3.9 3 5V19C3 20.1 3.89 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM19 19H5V8H19V19Z" fill="currentColor"/>
+                  </svg>
+                  <span>{{ siniestro.fechaReporte | date:'dd/MM/yyyy' }}</span>
+                </div>
+                <div class="claim-info-item">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M11.8 10.9C9.53 10.31 8.8 9.7 8.8 8.75C8.8 7.66 9.81 6.9 11.5 6.9C12.91 6.9 13.5 7.5 13.6 8.35H15.45C15.34 6.85 14.4 5.55 12.5 5.16V3.5H10.5V5.15C8.63 5.52 7.2 6.71 7.2 8.79C7.2 11.15 8.9 12.14 11.7 12.82C14.2 13.43 14.8 14.16 14.8 15.09C14.8 15.79 14.39 16.9 11.5 16.9C9.44 16.9 8.63 16.18 8.5 15.35H6.55C6.69 17.19 8.08 18.42 10.5 18.83V20.5H12.5V18.84C14.38 18.53 15.8 17.45 15.8 15.09C15.8 12.2 13.87 11.49 11.8 10.9Z" fill="currentColor"/>
+                  </svg>
+                  <span>{{ siniestro.montoReclamado | currency:'COP':'symbol-narrow':'1.0-0' }}</span>
+                </div>
+              </div>
+
+              <div class="claim-progress" *ngIf="siniestro.estado === 'En revisión'">
+                <div class="progress-steps">
+                  <div class="step" [class.completed]="true">
+                    <div class="step-marker"></div>
+                    <span>Reportado</span>
+                  </div>
+                  <div class="step" [class.completed]="true">
+                    <div class="step-marker"></div>
+                    <span>En revisión</span>
+                  </div>
+                  <div class="step">
+                    <div class="step-marker"></div>
+                    <span>Resolución</span>
+                  </div>
+                </div>
+              </div>
+
+              <button class="btn-small" (click)="verDetalleSiniestro(siniestro)">
+                Ver Detalles Completos
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL DE CONTRATACIÓN -->
+    <div class="modal-overlay" *ngIf="mostrarModalContratacion" (click)="cerrarModal()">
+      <div class="modal-content" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+          <h2>Contratar Seguro</h2>
+          <button class="btn-close" (click)="cerrarModal()">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z" fill="currentColor"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <div class="plan-selected-info">
+            <h3>{{ planSeleccionado?.nombre }}</h3>
+            <p>{{ planSeleccionado?.descripcion }}</p>
+            <div class="selected-price">
+              {{ planSeleccionado?.precioMensual | currency:'COP':'symbol-narrow':'1.0-0' }} /mes
+            </div>
+          </div>
+
+          <form [formGroup]="contratacionForm" (ngSubmit)="contratarSeguro()">
+            <div class="form-group">
+              <label for="beneficiario">Beneficiario *</label>
+              <input type="text" id="beneficiario" formControlName="beneficiario" placeholder="Nombre completo">
+              <div *ngIf="contratacionForm.get('beneficiario')?.invalid && contratacionForm.get('beneficiario')?.touched" class="error-message">
+                El beneficiario es requerido
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="identificacion">Identificación del Beneficiario *</label>
+              <input type="text" id="identificacion" formControlName="identificacion" placeholder="Número de documento">
+            </div>
+
+            <div class="form-group">
+              <label for="telefono">Teléfono de Contacto *</label>
+              <input type="tel" id="telefono" formControlName="telefono" placeholder="3001234567">
+            </div>
+
+            <div class="form-group">
+              <label for="direccion">Dirección *</label>
+              <input type="text" id="direccion" formControlName="direccion" placeholder="Dirección completa">
+            </div>
+
+            <div class="form-group">
+              <label for="cuenta">Cuenta para Débito Automático *</label>
+              <select id="cuenta" formControlName="numeroCuenta">
+                <option value="">Selecciona una cuenta</option>
+                <option *ngFor="let cuenta of cuentasDebito" [value]="cuenta.numeroCuenta">
+                  {{ cuenta.tipoCuenta }} - •••• {{ cuenta.numeroCuenta.toString().slice(-4) }} 
+                  (Saldo: {{ cuenta.saldo | currency:'COP':'symbol-narrow':'1.0-0' }})
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group checkbox-group">
+              <label class="checkbox-label">
+                <input type="checkbox" formControlName="aceptaTerminos">
+                <span>Acepto los términos y condiciones del seguro</span>
+              </label>
+            </div>
+
+            <div class="modal-actions">
+              <button type="button" class="btn btn-secondary" (click)="cerrarModal()">
+                Cancelar
+              </button>
+              <button type="submit" class="btn btn-primary" [disabled]="contratacionForm.invalid || procesando">
+                <span *ngIf="!procesando">Confirmar Contratación</span>
+                <span *ngIf="procesando">
+                  <div class="spinner-small"></div>
+                  Procesando...
+                </span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,544 @@
+<div class="form-page">
+  <div class="page-header">
+    <button class="back-btn" (click)="volver()">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Volver a mi perfil
+    </button>
+    
+    <div class="header-content">
+      <div class="header-icon">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 11H7V13H9V11ZM13 11H11V13H13V11ZM17 11H15V13H17V11ZM19 4H18V2H16V4H8V2H6V4H5C3.89 4 3.01 4.9 3.01 6L3 20C3 21.1 3.89 22 5 22H19C20.1 22 21 21.1 21 20V6C21 4.9 20.1 4 19 4ZM19 20H5V9H19V20Z" fill="currentColor"/>
+        </svg>
+      </div>
+      <div>
+        <h1>Apertura de CDT</h1>
+        <p class="subtitle">Certificado de Depósito a Término - Inversión segura con excelentes rendimientos</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-container">
+    <!-- BANNER DE BENEFICIOS -->
+    <div class="info-banner">
+      <div class="info-icon">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V15H13V17ZM13 13H11V7H13V13Z" fill="currentColor"/>
+        </svg>
+      </div>
+      <div class="info-content">
+        <h3>Beneficios de tu CDT</h3>
+        <ul class="benefits-list">
+          <li>
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+            </svg>
+            <span>Tasas de interés competitivas hasta 12% E.A.</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+            </svg>
+            <span>Inversión 100% segura con Fogafín</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+            </svg>
+            <span>Plazos flexibles desde 30 días</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+            </svg>
+            <span>Renovación automática opcional</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <form (ngSubmit)="onSubmit()" #cdtForm="ngForm">
+      
+      <!-- SECCIÓN: DATOS PERSONALES -->
+      <div class="form-section">
+        <h2 class="section-title">
+          <div class="title-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z" fill="currentColor"/>
+            </svg>
+          </div>
+          <span>Datos del Titular</span>
+        </h2>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName">Nombres <span class="required">*</span></label>
+            <input 
+              type="text" 
+              id="firstName" 
+              name="firstName"
+              [(ngModel)]="cdtData.firstName"
+              placeholder="Ingrese sus nombres"
+              required
+              #firstName="ngModel"
+            >
+            <small class="error-hint" *ngIf="firstName.invalid && firstName.touched">
+              Este campo es obligatorio
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="lastName">Apellidos <span class="required">*</span></label>
+            <input 
+              type="text" 
+              id="lastName" 
+              name="lastName"
+              [(ngModel)]="cdtData.lastName"
+              placeholder="Ingrese sus apellidos"
+              required
+              #lastName="ngModel"
+            >
+            <small class="error-hint" *ngIf="lastName.invalid && lastName.touched">
+              Este campo es obligatorio
+            </small>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="documentType">Tipo de Documento <span class="required">*</span></label>
+            <select 
+              id="documentType" 
+              name="documentType"
+              [(ngModel)]="cdtData.documentType"
+              required
+              #documentType="ngModel"
+            >
+              <option value="">Seleccione...</option>
+              <option value="CC">Cédula de Ciudadanía</option>
+              <option value="CE">Cédula de Extranjería</option>
+              <option value="NIT">NIT (Persona Jurídica)</option>
+              <option value="PAS">Pasaporte</option>
+            </select>
+            <small class="error-hint" *ngIf="documentType.invalid && documentType.touched">
+              Debe seleccionar un tipo
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="documentNumber">Número de Documento <span class="required">*</span></label>
+            <input 
+              type="text" 
+              id="documentNumber" 
+              name="documentNumber"
+              [(ngModel)]="cdtData.documentNumber"
+              placeholder="Ej: 1234567890"
+              required
+              pattern="[0-9]+"
+              #documentNumber="ngModel"
+            >
+            <small class="error-hint" *ngIf="documentNumber.invalid && documentNumber.touched">
+              Solo números permitidos
+            </small>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">Correo Electrónico <span class="required">*</span></label>
+            <input 
+              type="email" 
+              id="email" 
+              name="email"
+              [(ngModel)]="cdtData.email"
+              placeholder="correo@ejemplo.com"
+              required
+              email
+              #email="ngModel"
+            >
+            <small class="error-hint" *ngIf="email.invalid && email.touched">
+              Ingrese un correo válido
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Teléfono Celular <span class="required">*</span></label>
+            <input 
+              type="tel" 
+              id="phone" 
+              name="phone"
+              [(ngModel)]="cdtData.phone"
+              placeholder="3001234567"
+              required
+              pattern="[0-9]{10}"
+              #phone="ngModel"
+            >
+            <small class="error-hint" *ngIf="phone.invalid && phone.touched">
+              Ingrese 10 dígitos
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECCIÓN: CONFIGURACIÓN DEL CDT -->
+      <div class="form-section">
+        <h2 class="section-title">
+          <div class="title-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M11.8 10.9C9.53 10.31 8.8 9.7 8.8 8.75C8.8 7.66 9.81 6.9 11.5 6.9C13.28 6.9 13.94 7.75 14 9H16.21C16.14 7.28 15.09 5.7 13 5.19V3H10V5.16C8.06 5.58 6.5 6.84 6.5 8.77C6.5 11.08 8.41 12.23 11.2 12.9C13.7 13.5 14.2 14.38 14.2 15.31C14.2 16 13.71 17.1 11.5 17.1C9.44 17.1 8.63 16.18 8.52 15H6.32C6.44 17.19 8.08 18.42 10 18.83V21H13V18.85C14.95 18.48 16.5 17.35 16.5 15.3C16.5 12.46 14.07 11.49 11.8 10.9Z" fill="currentColor"/>
+            </svg>
+          </div>
+          <span>Detalles del CDT</span>
+        </h2>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="cdtAmount">Monto a invertir <span class="required">*</span></label>
+            <div class="input-with-icon">
+              <span class="currency">$</span>
+              <input 
+                type="number" 
+                id="cdtAmount" 
+                name="cdtAmount"
+                [(ngModel)]="cdtData.cdtAmount"
+                placeholder="2000000"
+                min="1000000"
+                required
+                #cdtAmount="ngModel"
+                (input)="calcularRendimiento()"
+              >
+            </div>
+            <small class="input-hint" *ngIf="cdtAmount.valid">Monto mínimo: $1,000,000 COP</small>
+            <small class="error-hint" *ngIf="cdtAmount.invalid && cdtAmount.touched">
+              El monto mínimo es $1,000,000
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="cdtTerm">Plazo del CDT <span class="required">*</span></label>
+            <select 
+              id="cdtTerm" 
+              name="cdtTerm"
+              [(ngModel)]="cdtData.cdtTerm"
+              required
+              #cdtTerm="ngModel"
+              (change)="calcularRendimiento()"
+            >
+              <option value="">Seleccione...</option>
+              <option value="30">30 días</option>
+              <option value="60">60 días</option>
+              <option value="90">90 días (3 meses)</option>
+              <option value="180">180 días (6 meses)</option>
+              <option value="360">360 días (12 meses)</option>
+              <option value="540">540 días (18 meses)</option>
+              <option value="720">720 días (24 meses)</option>
+              <option value="1080">1080 días (36 meses)</option>
+            </select>
+            <small class="error-hint" *ngIf="cdtTerm.invalid && cdtTerm.touched">
+              Seleccione el plazo
+            </small>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="interestPayment">Pago de intereses <span class="required">*</span></label>
+            <select 
+              id="interestPayment" 
+              name="interestPayment"
+              [(ngModel)]="cdtData.interestPayment"
+              required
+              #interestPayment="ngModel"
+              (change)="calcularRendimiento()"
+            >
+              <option value="">Seleccione...</option>
+              <option value="VENCIMIENTO">Al vencimiento</option>
+              <option value="MENSUAL">Mensual</option>
+              <option value="TRIMESTRAL">Trimestral</option>
+              <option value="SEMESTRAL">Semestral</option>
+            </select>
+            <small class="input-hint" *ngIf="interestPayment.valid">¿Cómo desea recibir los intereses?</small>
+            <small class="error-hint" *ngIf="interestPayment.invalid && interestPayment.touched">
+              Seleccione la forma de pago
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="cdtType">Tipo de CDT <span class="required">*</span></label>
+            <select 
+              id="cdtType" 
+              name="cdtType"
+              [(ngModel)]="cdtData.cdtType"
+              required
+              #cdtType="ngModel"
+              (change)="calcularRendimiento()"
+            >
+              <option value="">Seleccione...</option>
+              <option value="TRADICIONAL">CDT Tradicional</option>
+              <option value="CRECIENTE">CDT con tasa creciente</option>
+              <option value="INFLACION">CDT indexado a inflación (IPC)</option>
+            </select>
+            <small class="error-hint" *ngIf="cdtType.invalid && cdtType.touched">
+              Seleccione el tipo de CDT
+            </small>
+          </div>
+        </div>
+
+        <!-- SIMULADOR DE RENDIMIENTO -->
+        <div class="payment-summary" *ngIf="rendimientoTotal > 0">
+          <div class="summary-icon">📈</div>
+          <div class="summary-content">
+            <h4>Proyección de Rendimiento</h4>
+            <div class="summary-details">
+              <div class="summary-item">
+                <span class="label">Monto invertido:</span>
+                <span class="value">${{ cdtData.cdtAmount | number:'1.0-0' }} COP</span>
+              </div>
+              <div class="summary-item">
+                <span class="label">Plazo:</span>
+                <span class="value">{{ cdtData.cdtTerm }} días ({{ getPlazoTexto() }})</span>
+              </div>
+              <div class="summary-item">
+                <span class="label">Tasa E.A.:</span>
+                <span class="value">{{ tasaEfectiva }}%</span>
+              </div>
+              <div class="summary-item highlight">
+                <span class="label">Intereses ganados:</span>
+                <span class="value">${{ rendimientoTotal | number:'1.0-0' }} COP</span>
+              </div>
+              <div class="summary-item total">
+                <span class="label">Total al vencimiento:</span>
+                <span class="value">${{ totalAlVencimiento | number:'1.0-0' }} COP</span>
+              </div>
+            </div>
+            <p class="summary-disclaimer">* Valores antes de retención en la fuente (si aplica)</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECCIÓN: CUENTA DE ORIGEN -->
+      <div class="form-section">
+        <h2 class="section-title">
+          <div class="title-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M21 18V19C21 20.1 20.1 21 19 21H5C3.89 21 3 20.1 3 19V5C3 3.9 3.89 3 5 3H19C20.1 3 21 3.9 21 5V6H12C10.89 6 10 6.9 10 8V16C10 17.1 10.89 18 12 18H21ZM12 16H22V8H12V16ZM16 13.5C15.17 13.5 14.5 12.83 14.5 12C14.5 11.17 15.17 10.5 16 10.5C16.83 10.5 17.5 11.17 17.5 12C17.5 12.83 16.83 13.5 16 13.5Z" fill="currentColor"/>
+            </svg>
+          </div>
+          <span>Cuenta de Origen de Fondos</span>
+        </h2>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="sourceAccountType">Tipo de cuenta <span class="required">*</span></label>
+            <select 
+              id="sourceAccountType" 
+              name="sourceAccountType"
+              [(ngModel)]="cdtData.sourceAccountType"
+              required
+              #sourceAccountType="ngModel"
+            >
+              <option value="">Seleccione...</option>
+              <option value="AHORROS">Cuenta de Ahorros</option>
+              <option value="CORRIENTE">Cuenta Corriente</option>
+            </select>
+            <small class="error-hint" *ngIf="sourceAccountType.invalid && sourceAccountType.touched">
+              Seleccione el tipo de cuenta
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="sourceAccountNumber">Número de cuenta <span class="required">*</span></label>
+            <input 
+              type="text" 
+              id="sourceAccountNumber" 
+              name="sourceAccountNumber"
+              [(ngModel)]="cdtData.sourceAccountNumber"
+              placeholder="1234567890"
+              required
+              pattern="[0-9]{10,16}"
+              #sourceAccountNumber="ngModel"
+            >
+            <small class="input-hint" *ngIf="sourceAccountNumber.valid">Cuenta desde donde se debitará</small>
+            <small class="error-hint" *ngIf="sourceAccountNumber.invalid && sourceAccountNumber.touched">
+              Ingrese un número de cuenta válido
+            </small>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group full-width">
+            <label for="sourceBankName">Banco <span class="required">*</span></label>
+            <select 
+              id="sourceBankName" 
+              name="sourceBankName"
+              [(ngModel)]="cdtData.sourceBankName"
+              required
+              #sourceBankName="ngModel"
+            >
+              <option value="">Seleccione...</option>
+              <option value="MISMO_BANCO">Mismo banco</option>
+              <option value="BANCOLOMBIA">Bancolombia</option>
+              <option value="BANCO_BOGOTA">Banco de Bogotá</option>
+              <option value="DAVIVIENDA">Davivienda</option>
+              <option value="BBVA">BBVA Colombia</option>
+              <option value="SCOTIABANK">Scotiabank Colpatria</option>
+              <option value="BANCO_CAJA_SOCIAL">Banco Caja Social</option>
+              <option value="BANCO_POPULAR">Banco Popular</option>
+              <option value="BANCO_OCCIDENTE">Banco de Occidente</option>
+            </select>
+            <small class="error-hint" *ngIf="sourceBankName.invalid && sourceBankName.touched">
+              Seleccione el banco
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECCIÓN: CUENTA PARA INTERESES -->
+      <div class="form-section" *ngIf="cdtData.interestPayment !== 'VENCIMIENTO'">
+        <h2 class="section-title">
+          <div class="title-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20 4H4C2.89 4 2.01 4.89 2.01 6L2 18C2 19.11 2.89 20 4 20H20C21.11 20 22 19.11 22 18V6C22 4.89 21.11 4 20 4ZM20 18H4V12H20V18ZM20 8H4V6H20V8Z" fill="currentColor"/>
+            </svg>
+          </div>
+          <span>Cuenta para Pago de Intereses</span>
+        </h2>
+
+        <div class="checkbox-group">
+          <label class="checkbox-card" [class.checked]="usarMismaCuenta">
+            <input type="checkbox" name="samAccount" [(ngModel)]="usarMismaCuenta" (change)="cambiarCuentaIntereses()">
+            <div class="checkbox-content">
+              <div class="checkbox-icon">✓</div>
+              <div class="checkbox-info">
+                <h4>Usar la misma cuenta de origen</h4>
+                <p>Los intereses se depositarán en la misma cuenta desde donde se debita el CDT</p>
+              </div>
+            </div>
+          </label>
+        </div>
+
+        <div *ngIf="!usarMismaCuenta">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="interestAccountType">Tipo de cuenta</label>
+              <select 
+                id="interestAccountType" 
+                name="interestAccountType"
+                [(ngModel)]="cdtData.interestAccountType"
+              >
+                <option value="">Seleccione...</option>
+                <option value="AHORROS">Cuenta de Ahorros</option>
+                <option value="CORRIENTE">Cuenta Corriente</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="interestAccountNumber">Número de cuenta</label>
+              <input 
+                type="text" 
+                id="interestAccountNumber" 
+                name="interestAccountNumber"
+                [(ngModel)]="cdtData.interestAccountNumber"
+                placeholder="1234567890"
+                pattern="[0-9]{10,16}"
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECCIÓN: OPCIONES ADICIONALES -->
+      <div class="form-section">
+        <h2 class="section-title">
+          <div class="title-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19.43 12.98C19.47 12.66 19.5 12.34 19.5 12C19.5 11.66 19.47 11.34 19.43 11.02L21.54 9.37C21.73 9.22 21.78 8.95 21.66 8.73L19.66 5.27C19.54 5.05 19.27 4.97 19.05 5.05L16.56 6.05C16.04 5.65 15.48 5.32 14.87 5.07L14.49 2.42C14.46 2.18 14.25 2 14 2H10C9.75 2 9.54 2.18 9.51 2.42L9.13 5.07C8.52 5.32 7.96 5.66 7.44 6.05L4.95 5.05C4.72 4.96 4.46 5.05 4.34 5.27L2.34 8.73C2.21 8.95 2.27 9.22 2.46 9.37L4.57 11.02C4.53 11.34 4.5 11.67 4.5 12C4.5 12.33 4.53 12.66 4.57 12.98L2.46 14.63C2.27 14.78 2.22 15.05 2.34 15.27L4.34 18.73C4.46 18.95 4.73 19.03 4.95 18.95L7.44 17.95C7.96 18.35 8.52 18.68 9.13 18.93L9.51 21.58C9.54 21.82 9.75 22 10 22H14C14.25 22 14.46 21.82 14.49 21.58L14.87 18.93C15.48 18.68 16.04 18.34 16.56 17.95L19.05 18.95C19.28 19.04 19.54 18.95 19.66 18.73L21.66 15.27C21.78 15.05 21.73 14.78 21.54 14.63L19.43 12.98ZM12 15.5C10.07 15.5 8.5 13.93 8.5 12C8.5 10.07 10.07 8.5 12 8.5C13.93 8.5 15.5 10.07 15.5 12C15.5 13.93 13.93 15.5 12 15.5Z" fill="currentColor"/>
+            </svg>
+          </div>
+          <span>Opciones Adicionales</span>
+        </h2>
+
+        <div class="checkbox-row">
+          <label class="checkbox-label" [class.active]="cdtData.autoRenewal">
+            <input type="checkbox" name="autoRenewal" [(ngModel)]="cdtData.autoRenewal">
+            <div class="checkbox-box">
+              <svg *ngIf="cdtData.autoRenewal" viewBox="0 0 24 24" fill="none">
+                <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+              </svg>
+            </div>
+            <span>Renovación automática al vencimiento</span>
+          </label>
+          
+          <label class="checkbox-label" [class.active]="cdtData.emailNotifications">
+            <input type="checkbox" name="emailNotif" [(ngModel)]="cdtData.emailNotifications" checked>
+            <div class="checkbox-box">
+              <svg *ngIf="cdtData.emailNotifications" viewBox="0 0 24 24" fill="none">
+                <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+              </svg>
+            </div>
+            <span>Notificaciones por email</span>
+          </label>
+
+          <label class="checkbox-label" [class.active]="cdtData.physicalCertificate">
+            <input type="checkbox" name="physCert" [(ngModel)]="cdtData.physicalCertificate">
+            <div class="checkbox-box">
+              <svg *ngIf="cdtData.physicalCertificate" viewBox="0 0 24 24" fill="none">
+                <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+              </svg>
+            </div>
+            <span>Solicitar certificado físico</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- TÉRMINOS Y CONDICIONES -->
+      <div class="terms-section">
+        <label class="terms-checkbox">
+          <input type="checkbox" name="terms" [(ngModel)]="cdtData.acceptTerms" required #terms="ngModel">
+          <div class="terms-content">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+            </svg>
+            <span>Acepto los <a href="#" (click)="$event.preventDefault()">términos y condiciones</a> del CDT, he leído y entiendo las condiciones de inversión y autorizo el débito del monto especificado <span class="required">*</span></span>
+          </div>
+        </label>
+        <small class="error-hint" *ngIf="terms.invalid && terms.touched">
+          Debe aceptar los términos para continuar
+        </small>
+      </div>
+
+      <!-- MENSAJE DE RESPUESTA -->
+      <div *ngIf="mensaje" class="alert" [class.alert-success]="mensajeTipo === 'success'" [class.alert-error]="mensajeTipo === 'error'">
+        <svg *ngIf="mensajeTipo === 'success'" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+        </svg>
+        <svg *ngIf="mensajeTipo === 'error'" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V15H13V17ZM13 13H11V7H13V13Z" fill="currentColor"/>
+        </svg>
+        <span>{{ mensaje }}</span>
+      </div>
+
+      <!-- BOTONES DE ACCIÓN -->
+      <div class="form-actions">
+        <button type="button" class="btn-secondary" (click)="volver()">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z" fill="currentColor"/>
+          </svg>
+          <span>Cancelar</span>
+        </button>
+        <button type="submit" class="btn-primary" [disabled]="!cdtForm.valid || isSubmitting">
+          <span *ngIf="!isSubmitting">Constituir CDT</span>
+          <span *ngIf="isSubmitting" class="loading-content">
+            <div class="spinner"></div>
+            Procesando...
+          </span>
+          <svg *ngIf="!isSubmitting" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 5L16 12L9 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

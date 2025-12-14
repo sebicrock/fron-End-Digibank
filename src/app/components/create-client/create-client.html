@@ -1,0 +1,329 @@
+<div class="banking-container">
+  <div class="form-container">
+    <!-- Header con Logo -->
+    <div class="form-header">
+      <div class="logo-container">
+        <div class="logo">
+          <div class="logo-content">
+            <div class="chip"></div>
+            <div class="card-number">•••• 9876</div>
+            <div class="card-logo">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" fill="currentColor" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="bank-name">
+          <h1>DigiBank</h1>
+          <p class="tagline">Banca digital del futuro</p>
+        </div>
+      </div>
+
+      <h2>Registro de Cliente Nuevo</h2>
+      <p class="subtitle">Complete todos los datos para crear su cuenta</p>
+    </div>
+
+    <!-- Formulario principal -->
+    <form (ngSubmit)="onSubmit()" #clientForm="ngForm">
+      <!-- Información Personal -->
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-icon">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path
+                d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z"
+                fill="currentColor" />
+            </svg>
+          </div>
+          <h3 class="section-title">Información Personal</h3>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fullNames">Nombres Completos <span class="required">*</span></label>
+            <input type="text" name="fullNames" id="fullNames" [(ngModel)]="clientData.fullNames" required
+              placeholder="Ej: Juan Carlos" #fullNames="ngModel">
+            <small class="error-hint" *ngIf="fullNames.invalid && fullNames.touched">Este campo es obligatorio</small>
+          </div>
+          <div class="form-group">
+            <label for="fullSurNames">Apellidos Completos <span class="required">*</span></label>
+            <input type="text" name="fullSurNames" id="fullSurNames" [(ngModel)]="clientData.fullSurNames" required
+              placeholder="Ej: García López" #fullSurNames="ngModel">
+            <small class="error-hint" *ngIf="fullSurNames.invalid && fullSurNames.touched">Este campo es
+              obligatorio</small>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="documentType">Tipo de Documento <span class="required">*</span></label>
+            <select name="documentType" id="documentType" [(ngModel)]="clientData.documentType" required
+              #documentType="ngModel">
+              <option value="">Seleccione...</option>
+              <option value="CC">Cédula de Ciudadanía (CC)</option>
+              <option value="CE">Cédula de Extranjería (CE)</option>
+              <option value="PA">Pasaporte (PA)</option>
+              <option value="TI">Tarjeta de Identidad (TI)</option>
+            </select>
+            <small class="error-hint" *ngIf="documentType.invalid && documentType.touched">Debe seleccionar un
+              tipo</small>
+          </div>
+          <div class="form-group">
+            <label for="documentNumber">Número de Documento <span class="required">*</span></label>
+            <input type="text" name="documentNumber" id="documentNumber" [(ngModel)]="clientData.documentNumber"
+              required placeholder="123456789" pattern="[0-9]+" #documentNumber="ngModel">
+            <small class="error-hint" *ngIf="documentNumber.invalid && documentNumber.touched">Solo números
+              permitidos</small>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="birthDate">Fecha de Nacimiento <span class="required">*</span></label>
+            <input type="date" name="birthDate" id="birthDate" [(ngModel)]="clientData.birthDate"
+              (change)="calculateAge()" required #birthDate="ngModel">
+            <small class="error-hint" *ngIf="birthDate.invalid && birthDate.touched">Este campo es obligatorio</small>
+          </div>
+          <div class="form-group">
+            <label for="gender">Género <span class="required">*</span></label>
+            <select id="gender" name="gender" [(ngModel)]="clientData.gender" required #gender="ngModel">
+              <option value="">Seleccione...</option>
+              <option value="M">Masculino</option>
+              <option value="F">Femenino</option>
+              <option value="O">Otro</option>
+            </select>
+            <small class="error-hint" *ngIf="gender.invalid && gender.touched">Debe seleccionar un género</small>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="age">Edad</label>
+            <input type="number" name="age" id="age" [(ngModel)]="clientData.age" placeholder="18" min="18" max="120"
+              readonly [ngModelOptions]="{ standalone: true }">
+            <small class="input-hint">Se calcula automáticamente</small>
+          </div>
+          <div class="form-group">
+            <label for="mobilePhone">Teléfono Celular <span class="required">*</span></label>
+            <input type="tel" name="mobilePhone" id="mobilePhone" [(ngModel)]="clientData.mobilePhone" required
+              placeholder="3001234567" pattern="[0-9]{10}" #mobilePhone="ngModel">
+            <small class="error-hint" *ngIf="mobilePhone.invalid && mobilePhone.touched">Ingrese 10 dígitos</small>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="income">Ingreso Mensual <span class="required">*</span></label>
+            <input type="number" name="income" id="income" [(ngModel)]="clientData.income" required
+              placeholder="1000000" min="0" #income="ngModel">
+            <small class="error-hint" *ngIf="income.invalid && income.touched">Ingrese un valor válido</small>
+          </div>
+          <div class="form-group">
+            <label for="employmentStatus">Estado Laboral <span class="required">*</span></label>
+            <select id="employmentStatus" name="employmentStatus" [(ngModel)]="clientData.employmentStatus" required
+              #employmentStatus="ngModel">
+              <option value="">Seleccione...</option>
+              <option value="Empleado">Empleado</option>
+              <option value="Independiente">Independiente</option>
+              <option value="Desempleado">Desempleado</option>
+              <option value="Pensionado">Pensionado</option>
+            </select>
+            <small class="error-hint" *ngIf="employmentStatus.invalid && employmentStatus.touched">Debe seleccionar un
+              estado</small>
+          </div>
+        </div>
+
+        <div class="form-group full-width">
+          <label for="occupation">Ocupación <span class="required">*</span></label>
+          <input type="text" id="occupation" name="occupation" [(ngModel)]="clientData.occupation" required
+            placeholder="Ej: Ingeniero, Contador" #occupation="ngModel">
+          <small class="error-hint" *ngIf="occupation.invalid && occupation.touched">Este campo es obligatorio</small>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="yearsOfExperience">Años de Experiencia <span class="required">*</span></label>
+            <input type="number" id="yearsOfExperience" name="yearsOfExperience"
+              [(ngModel)]="clientData.yearsOfExperience" required placeholder="5" min="0" #yearsOfExperience="ngModel">
+            <small class="error-hint" *ngIf="yearsOfExperience.invalid && yearsOfExperience.touched">Ingrese un valor
+              válido</small>
+          </div>
+          <div class="form-group">
+            <label for="companyName">Nombre de la Compañía <span class="required">*</span></label>
+            <input type="text" id="companyName" name="companyName" [(ngModel)]="clientData.companyName" required
+              placeholder="Ej: Tech Solutions" #companyName="ngModel">
+            <small class="error-hint" *ngIf="companyName.invalid && companyName.touched">Este campo es
+              obligatorio</small>
+          </div>
+        </div>
+
+        <div class="form-group full-width">
+          <label for="address">Dirección <span class="required">*</span></label>
+          <input type="text" name="address" id="address" [(ngModel)]="clientData.address" required
+            placeholder="Calle 22 #12-34" #address="ngModel">
+          <small class="error-hint" *ngIf="address.invalid && address.touched">Este campo es obligatorio</small>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="city">Ciudad <span class="required">*</span></label>
+            <input type="text" name="city" id="city" [(ngModel)]="clientData.city" required placeholder="Ej: Bogotá"
+              #city="ngModel">
+            <small class="error-hint" *ngIf="city.invalid && city.touched">Este campo es obligatorio</small>
+          </div>
+          <div class="form-group">
+            <label for="department">Departamento <span class="required">*</span></label>
+            <select id="department" name="department" [(ngModel)]="clientData.department" required
+              #department="ngModel">
+              <option value="">Seleccione...</option>
+              <option value="Amazonas">Amazonas</option>
+              <option value="Antioquia">Antioquia</option>
+              <option value="Arauca">Arauca</option>
+              <option value="Atlántico">Atlántico</option>
+              <option value="Bolívar">Bolívar</option>
+              <option value="Boyacá">Boyacá</option>
+              <option value="Caldas">Caldas</option>
+              <option value="Caquetá">Caquetá</option>
+              <option value="Casanare">Casanare</option>
+              <option value="Cauca">Cauca</option>
+              <option value="Cesar">Cesar</option>
+              <option value="Chocó">Chocó</option>
+              <option value="Córdoba">Córdoba</option>
+              <option value="Cundinamarca">Cundinamarca</option>
+              <option value="Guainía">Guainía</option>
+              <option value="Guaviare">Guaviare</option>
+              <option value="Huila">Huila</option>
+              <option value="La Guajira">La Guajira</option>
+              <option value="Magdalena">Magdalena</option>
+              <option value="Meta">Meta</option>
+              <option value="Nariño">Nariño</option>
+              <option value="Norte de Santander">Norte de Santander</option>
+              <option value="Putumayo">Putumayo</option>
+              <option value="Quindío">Quindío</option>
+              <option value="Risaralda">Risaralda</option>
+              <option value="San Andrés">San Andrés y Providencia</option>
+              <option value="Santander">Santander</option>
+              <option value="Sucre">Sucre</option>
+              <option value="Tolima">Tolima</option>
+              <option value="Valle del Cauca">Valle del Cauca</option>
+              <option value="Vaupés">Vaupés</option>
+              <option value="Vichada">Vichada</option>
+            </select>
+            <small class="error-hint" *ngIf="department.invalid && department.touched">Debe seleccionar un
+              departamento</small>
+          </div>
+        </div>
+
+        <div class="form-group full-width">
+          <label for="email">Correo Electrónico <span class="required">*</span></label>
+          <input type="email" name="email" id="email" [(ngModel)]="clientData.email" required
+            placeholder="ejemplo@correo.com" email #email="ngModel">
+          <small class="input-hint" *ngIf="email.valid">Usaremos este correo para comunicarnos contigo</small>
+          <small class="error-hint" *ngIf="email.invalid && email.touched">Ingrese un correo válido</small>
+        </div>
+      </div>
+
+      <!-- Datos de Acceso -->
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-icon">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path
+                d="M18 8H17V6C17 3.24 14.76 1 12 1C9.24 1 7 3.24 7 6V8H6C4.9 8 4 8.9 4 10V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V10C20 8.9 19.1 8 18 8ZM12 17C10.9 17 10 16.1 10 15C10 13.9 10.9 13 12 13C13.1 13 14 13.9 14 15C14 16.1 13.1 17 12 17ZM15.1 8H8.9V6C8.9 4.29 10.29 2.9 12 2.9C13.71 2.9 15.1 4.29 15.1 6V8Z"
+                fill="currentColor" />
+            </svg>
+          </div>
+          <h3 class="section-title">Crear Credenciales de Acceso</h3>
+        </div>
+
+        <div class="security-notice">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path
+              d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V15H13V17ZM13 13H11V7H13V13Z"
+              fill="currentColor" />
+          </svg>
+          <p>Estos datos los usarás para iniciar sesión en la plataforma bancaria después de registrarte</p>
+        </div>
+
+        <div class="user-section">
+          <div class="form-group full-width">
+            <label for="userName">Nombre de Usuario <span class="required">*</span></label>
+            <input type="text" name="userName" id="userName" [(ngModel)]="clientData.user[0].userName" required
+              placeholder="Crea tu nombre de usuario" minlength="4" #userName="ngModel">
+            <small class="input-hint" *ngIf="userName.valid">Mínimo 4 caracteres. Lo usarás para iniciar sesión</small>
+            <small class="error-hint" *ngIf="userName.invalid && userName.touched">Mínimo 4 caracteres
+              requeridos</small>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="password">Contraseña <span class="required">*</span></label>
+              <input type="password" name="password" id="password" [(ngModel)]="clientData.user[0].password" required
+                placeholder="Crea tu contraseña" minlength="6" #password="ngModel">
+              <small class="input-hint" *ngIf="password.valid">Mínimo 6 caracteres</small>
+              <small class="error-hint" *ngIf="password.invalid && password.touched">Mínimo 6 caracteres
+                requeridos</small>
+            </div>
+            <div class="form-group">
+              <label for="confirmPassword">Confirmar Contraseña <span class="required">*</span></label>
+              <input type="password" name="confirmPassword" id="confirmPassword" [(ngModel)]="confirmPassword" required
+                placeholder="Repite tu contraseña" minlength="6" #confirmPasswordField="ngModel">
+              <small class="error-hint" *ngIf="confirmPasswordField.touched && password.value !== confirmPassword">Las
+                contraseñas no coinciden</small>
+            </div>
+          </div>
+
+          <div class="form-group full-width">
+            <label for="role">Tipo de Cuenta <span class="required">*</span></label>
+            <select name="role" id="role" [(ngModel)]="clientData.user[0].role" required #role="ngModel">
+              <option value="">Seleccione...</option>
+              <option value="Cliente" selected>CLIENTE</option>
+              <option value="Administrador">ADMINISTRADOR</option>
+            </select>
+            <small class="error-hint" *ngIf="role.invalid && role.touched">Debe seleccionar un tipo de cuenta</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Términos -->
+      <div class="terms-section">
+        <label class="checkbox-container">
+          <input type="checkbox" name="acceptTerms" id="acceptTerms" [(ngModel)]="clientData.acceptTerms" required
+            #acceptTerms="ngModel">
+          <span class="terms-text">
+            Acepto los <a href="#" target="_blank">términos y condiciones</a> y la
+            <a href="#" target="_blank">política de privacidad</a> del banco
+          </span>
+        </label>
+        <small class="error-hint" *ngIf="acceptTerms.invalid && acceptTerms.touched">Debe aceptar los términos</small>
+      </div>
+
+      <div *ngIf="mensaje" class="mensaje-container"
+        [ngClass]="{'exito': mensaje.includes('✅'), 'error': mensaje.includes('⚠️') || mensaje.includes('❌')}">
+        {{ mensaje }}
+      </div>
+
+      <button type="submit" class="submit-btn"
+        [disabled]="!clientForm.form.valid || (password.value !== confirmPassword)">
+        <span>Registrar Mi Cuenta</span>
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M9 5L16 12L9 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
+      </button>
+    </form>
+
+    <!-- Footer -->
+    <div class="form-footer">
+      <p>¿Ya tienes una cuenta? <a routerLink="/login" id="loginLink">Iniciar sesión aquí</a>
+      </p>
+      <div class="security-badges">
+        <span class="badge">🔒 Conexión Segura</span>
+        <span class="badge">✓ Datos Encriptados</span>
+        <span class="badge">🛡️ Certificado SSL</span>
+      </div>
+    </div>
+  </div>
+</div>

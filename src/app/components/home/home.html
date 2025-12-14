@@ -1,0 +1,523 @@
+<div class="landing-page">
+  <!-- HEADER -->
+  <header class="header" [class.scrolled]="isScrolled">
+    <div class="header-container">
+      <div class="logo-brand">
+        <div class="logo-card">
+          <div class="logo-content">
+            <div class="chip">&nbsp;</div>
+            <div class="card-number">•••• 9876</div>
+            <div class="card-icon">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" fill="currentColor"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <span class="brand-name">DigiBank</span>
+      </div>
+
+      <button class="mobile-menu-btn" (click)="toggleMobileMenu()">
+        <svg *ngIf="!mobileMenuOpen" viewBox="0 0 24 24" fill="none">
+          <path d="M3 12H21M3 6H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <svg *ngIf="mobileMenuOpen" viewBox="0 0 24 24" fill="none">
+          <path d="M6 6L18 18M6 18L18 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+
+      <nav class="nav-menu" [class.mobile-open]="mobileMenuOpen">
+        <a href="#inicio" class="nav-link active" (click)="scrollToSection('inicio')">Inicio</a>
+        <a href="#servicios" class="nav-link" (click)="scrollToSection('servicios')">Servicios</a>
+        <a href="#productos" class="nav-link" (click)="scrollToSection('productos')">Productos</a>
+        <a href="#nosotros" class="nav-link" (click)="scrollToSection('nosotros')">Sobre nosotros</a>
+        <a href="#contacto" class="nav-link" (click)="scrollToSection('contacto')">Contacto</a>
+      </nav>
+
+      <div class="header-actions">
+        <a routerLink="/login" class="btn-login">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M15 3H19C20.1 3 21 3.9 21 5V19C21 20.1 20.1 21 19 21H15M10 17L15 12L10 7M15 12H3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>Iniciar sesión</span>
+        </a>
+        <a routerLink="/clientForm" class="btn-register">
+          <span>Abrir mi cuenta</span>
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M9 5L16 12L9 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section id="inicio" class="hero-section">
+    <div class="hero-background">
+      <div class="animated-circles">
+        <div class="circle circle-1"></div>
+        <div class="circle circle-2"></div>
+        <div class="circle circle-3"></div>
+      </div>
+    </div>
+
+    <div class="hero-container">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor"/>
+          </svg>
+          <span>Banca digital del futuro</span>
+        </div>
+
+        <h1 class="hero-title">
+          Tu banco digital de <span class="gradient-text">confianza</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          Gestiona tus finanzas desde cualquier lugar, en cualquier momento. 
+          Experiencia bancaria moderna, rápida y 100% segura.
+        </p>
+
+        <div class="hero-actions">
+          <a routerLink="/clientForm" class="btn-primary">
+            <span>Comenzar ahora</span>
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M9 5L16 12L9 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <button class="btn-secondary" (click)="scrollToSection('servicios')">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M14.752 11.168L21.4 7.242C21.7856 7.02148 22 6.60984 22 6.16667V6.16667C22 5.41421 21.2614 4.90687 20.6 5.242L12 10L3.4 5.242C2.73858 4.90687 2 5.41421 2 6.16667V6.16667C2 6.60984 2.21442 7.02148 2.6 7.242L9.248 11.168C10.9216 12.2106 13.0784 12.2106 14.752 11.168Z" fill="currentColor"/>
+              <path d="M14.752 16.168L21.4 12.242C21.7856 12.0215 22 11.6098 22 11.1667V11.1667C22 10.4142 21.2614 9.90687 20.6 10.242L12 15L3.4 10.242C2.73858 9.90687 2 10.4142 2 11.1667V11.1667C2 11.6098 2.21442 12.0215 2.6 12.242L9.248 16.168C10.9216 17.2106 13.0784 17.2106 14.752 16.168Z" fill="currentColor"/>
+            </svg>
+            <span>Ver servicios</span>
+          </button>
+        </div>
+
+        <div class="hero-stats">
+          <div class="stat-item">
+            <div class="stat-number">150K+</div>
+            <div class="stat-label">Usuarios activos</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">24/7</div>
+            <div class="stat-label">Soporte disponible</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">Digital y seguro</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="floating-card card-1">
+          <div class="card-header">
+            <div class="card-chip"></div>
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2Z" fill="currentColor"/>
+            </svg>
+          </div>
+          <div class="card-number">•••• •••• •••• 9876</div>
+          <div class="card-footer">
+            <div class="card-holder">Juan Pérez</div>
+            <div class="card-expiry">12/27</div>
+          </div>
+        </div>
+
+        <div class="floating-card card-2">
+          <div class="transaction-item">
+            <div class="transaction-icon success">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M7 14L2 9L3.41 7.59L7 11.17L20.59 -2.42L22 -1L7 14Z" fill="currentColor"/>
+              </svg>
+            </div>
+            <div class="transaction-info">
+              <div class="transaction-title">Transferencia exitosa</div>
+              <div class="transaction-date">Hace 2 minutos</div>
+            </div>
+            <div class="transaction-amount success">+$500,000</div>
+          </div>
+        </div>
+
+        <div class="floating-card card-3">
+          <div class="stat-card">
+            <div class="stat-icon">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M7 11H9V17H7V11ZM11 7H13V17H11V7ZM15 13H17V17H15V13Z" fill="currentColor"/>
+              </svg>
+            </div>
+            <div class="stat-value">$15,234,560</div>
+            <div class="stat-label">Saldo total</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS DESTACADOS -->
+  <section id="servicios" class="services-section">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-badge">Servicios</span>
+        <h2 class="section-title">Todo lo que necesitas en un solo lugar</h2>
+        <p class="section-subtitle">Soluciones financieras completas diseñadas para tu vida digital</p>
+      </div>
+
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M21 18V19C21 20.1 20.1 21 19 21H5C3.89 21 3 20.1 3 19V5C3 3.9 3.89 3 5 3H19C20.1 3 21 3.9 21 5V6H12C10.89 6 10 6.9 10 8V16C10 17.1 10.89 18 12 18H21ZM12 16H22V8H12V16ZM16 13.5C15.17 13.5 14.5 12.83 14.5 12C14.5 11.17 15.17 10.5 16 10.5C16.83 10.5 17.5 11.17 17.5 12C17.5 12.83 16.83 13.5 16 13.5Z" fill="currentColor"/>
+            </svg>
+          </div>
+          <h3 class="service-title">Cuentas de Ahorro</h3>
+          <p class="service-description">Abre tu cuenta 100% digital con intereses competitivos y sin cuota de manejo</p>
+          <ul class="service-features">
+            <li>Sin costos ocultos</li>
+            <li>Intereses del 4.5% E.A.</li>
+            <li>Apertura inmediata</li>
+          </ul>
+          <a class="service-btn" routerLink="/login">
+            <span>Abrir cuenta</span>
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M9 5L16 12L9 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </a>
+        </div>
+
+        <div class="service-card featured">
+          <div class="featured-badge">Popular</div>
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M11.8 10.9C9.53 10.31 8.8 9.7 8.8 8.75C8.8 7.66 9.81 6.9 11.5 6.9C12.91 6.9 13.5 7.5 13.6 8.35H15.45C15.34 6.85 14.4 5.55 12.5 5.16V3.5H10.5V5.15C8.63 5.52 7.2 6.71 7.2 8.79C7.2 11.15 8.9 12.14 11.7 12.82C14.2 13.43 14.8 14.16 14.8 15.09C14.8 15.79 14.39 16.9 11.5 16.9C9.44 16.9 8.63 16.18 8.5 15.35H6.55C6.69 17.19 8.08 18.42 10.5 18.83V20.5H12.5V18.84C14.38 18.53 15.8 17.45 15.8 15.09C15.8 12.2 13.87 11.49 11.8 10.9Z" fill="currentColor"/>
+            </svg>
+          </div>
+          <h3 class="service-title">Ahorro Programado</h3>
+          <p class="service-description">Programa tus ahorros automáticamente y alcanza tus metas financieras más rápido</p>
+          <ul class="service-features">
+            <li>Ahorro automático</li>
+            <li>Metas personalizables</li>
+            <li>Mayores intereses</li>
+          </ul>
+          <a class="service-btn" routerLink="/login">
+            <span>Programar ahorro</span>
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M9 5L16 12L9 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </a>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M20 4H4C2.89 4 2.01 4.89 2.01 6L2 18C2 19.11 2.89 20 4 20H20C21.11 20 22 19.11 22 18V6C22 4.89 21.11 4 20 4ZM20 18H4V12H20V18ZM20 8H4V6H20V8Z" fill="currentColor"/>
+            </svg>
+          </div>
+          <h3 class="service-title">Préstamos Digitales</h3>
+          <p class="service-description">Solicita tu préstamo online con aprobación inmediata y tasas preferenciales</p>
+          <ul class="service-features">
+            <li>Aprobación en minutos</li>
+            <li>Tasas competitivas</li>
+            <li>Desembolso inmediato</li>
+          </ul>
+          <a class="service-btn" routerLink="/login">
+            <span>Solicitar préstamo</span>
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M9 5L16 12L9 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </a>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M20 12L16 8V11H4V13H16V16L20 12Z" fill="currentColor"/>
+            </svg>
+          </div>
+          <h3 class="service-title">Pagos y Transferencias</h3>
+          <p class="service-description">Realiza transferencias y pagos instantáneos sin comisiones adicionales</p>
+          <ul class="service-features">
+            <li>Transferencias 24/7</li>
+            <li>Sin comisiones</li>
+            <li>Confirmación inmediata</li>
+          </ul>
+          <a class="service-btn" routerLink="/login">
+            <span>Transferir ahora</span>
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M9 5L16 12L9 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BENEFICIOS -->
+  <section id="productos" class="benefits-section">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-badge">Beneficios</span>
+        <h2 class="section-title">¿Por qué elegir DigiBank?</h2>
+        <p class="section-subtitle">La mejor experiencia bancaria digital del mercado</p>
+      </div>
+
+      <div class="benefits-grid">
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M12 1L3 5V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V5L12 1ZM10 17L6 13L7.41 11.59L10 14.17L16.59 7.58L18 9L10 17Z" fill="currentColor"/>
+            </svg>
+          </div>
+          <h3 class="benefit-title">100% Digital y Seguro</h3>
+          <p class="benefit-description">Tecnología de encriptación de última generación para proteger tus datos y transacciones</p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20ZM12.5 7H11V13L16.25 16.15L17 14.92L12.5 12.25V7Z" fill="currentColor"/>
+            </svg>
+          </div>
+          <h3 class="benefit-title">Soporte 24/7</h3>
+          <p class="benefit-description">Atención al cliente disponible todos los días del año, sin importar la hora</p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M13 2.05V4.03C17.39 4.59 20.5 8.58 19.95 12.97C19.5 16.61 16.64 19.5 13 19.93V21.93C18.5 21.38 22.5 16.5 21.95 11C21.5 6.25 17.73 2.5 13 2.05ZM11 2.06C9.05 2.25 7.19 3 5.67 4.26L7.1 5.74C8.22 4.84 9.57 4.26 11 4.06V2.06ZM4.26 5.67C3 7.19 2.25 9.04 2.05 11H4.05C4.24 9.58 4.8 8.23 5.69 7.1L4.26 5.67ZM2.06 13C2.26 14.96 3.03 16.81 4.27 18.33L5.69 16.9C4.81 15.77 4.24 14.42 4.06 13H2.06ZM7.1 18.37L5.67 19.74C7.18 21 9.04 21.79 11 22V20C9.58 19.82 8.23 19.25 7.1 18.37Z" fill="currentColor"/>
+            </svg>
+          </div>
+          <h3 class="benefit-title">Transacciones Instantáneas</h3>
+          <p class="benefit-description">Realiza operaciones en tiempo real sin esperas ni complicaciones</p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13.41 18.09V20H10.74V18.07C9.03 17.71 7.58 16.61 7.5 14.67H9.75C9.82 15.74 10.59 16.42 12.07 16.42C13.71 16.42 14.19 15.56 14.19 14.97C14.19 14.22 13.71 13.54 11.94 13.12C9.61 12.59 7.5 11.79 7.5 9.5C7.5 7.73 8.86 6.42 10.74 6.05V4H13.41V6.07C15.35 6.42 16.37 7.74 16.43 9.5H14.19C14.15 8.36 13.46 7.73 12.07 7.73C10.59 7.73 9.95 8.38 9.95 9.23C9.95 9.93 10.43 10.5 12.25 10.95C14.07 11.4 16.64 12.03 16.64 14.97C16.63 16.83 15.38 17.93 13.41 18.09Z" fill="currentColor"/>
+            </svg>
+          </div>
+          <h3 class="benefit-title">Sin Costos Ocultos</h3>
+          <p class="benefit-description">Transparencia total en todas nuestras tarifas y servicios bancarios</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOBRE NOSOTROS -->
+  <section id="nosotros" class="about-section">
+    <div class="section-container">
+      <div class="about-content">
+        <div class="about-text">
+          <span class="section-badge">Sobre nosotros</span>
+          <h2 class="section-title">Innovación financiera al alcance de todos</h2>
+          <p class="about-description">
+            DigiBank nace con la misión de democratizar los servicios financieros a través de la tecnología. 
+            Somos más que un banco digital, somos tu aliado financiero para construir un futuro próspero.
+          </p>
+          <div class="about-stats">
+            <div class="about-stat">
+              <div class="stat-number">5+</div>
+              <div class="stat-text">Años de experiencia</div>
+            </div>
+            <div class="about-stat">
+              <div class="stat-number">150K+</div>
+              <div class="stat-text">Clientes satisfechos</div>
+            </div>
+            <div class="about-stat">
+              <div class="stat-number">99.9%</div>
+              <div class="stat-text">Disponibilidad</div>
+            </div>
+          </div>
+          <button class="btn-about">
+            <span>Conoce más</span>
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M9 5L16 12L9 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="about-visual">
+          <div class="about-card card-1">
+            <div class="card-icon">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 1L3 5V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V5L12 1Z" fill="currentColor"/>
+              </svg>
+            </div>
+            <div class="card-title">Seguridad Garantizada</div>
+          </div>
+          <div class="about-card card-2">
+            <div class="card-icon">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z" fill="currentColor"/>
+              </svg>
+            </div>
+            <div class="card-title">Certificado SSL</div>
+          </div>
+          <div class="about-card card-3">
+            <div class="card-icon">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM12 12C10.34 12 9 10.66 9 9C9 7.34 10.34 6 12 6C13.66 6 15 7.34 15 9C15 10.66 13.66 12 12 12ZM18 18H6V16.47C6 13.97 9.97 12.89 12 12.89C14.03 12.89 18 13.97 18 16.47V18Z" fill="currentColor"/>
+              </svg>
+            </div>
+            <div class="card-title">Datos Encriptados</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto" class="contact-section">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-badge">Contacto</span>
+        <h2 class="section-title">¿Tienes alguna pregunta?</h2>
+        <p class="section-subtitle">Estamos aquí para ayudarte en todo momento</p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-card">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M20 4H4C2.9 4 2.01 4.9 2.01 6L2 18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4ZM20 8L12 13L4 8V6L12 11L20 6V8Z" fill="currentColor"/>
+            </svg>
+          </div>
+          <h3 class="contact-title">Email</h3>
+          <p class="contact-info">soporte@digibank.com</p>
+          <a href="mailto:soporte@digibank.com" class="contact-link">Enviar email</a>
+        </div>
+
+        <div class="contact-card">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M6.62 10.79C8.06 13.62 10.38 15.94 13.21 17.38L15.41 15.18C15.69 14.9 16.08 14.82 16.43 14.93C17.55 15.3 18.75 15.5 20 15.5C20.55 15.5 21 15.95 21 16.5V20C21 20.55 20.55 21 20 21C10.61 21 3 13.39 3 4C3 3.45 3.45 3 4 3H7.5C8.05 3 8.5 3.45 8.5 4C8.5 5.25 8.7 6.45 9.07 7.57C9.18 7.92 9.1 8.31 8.82 8.59L6.62 10.79Z" fill="currentColor"/>
+            </svg>
+          </div>
+          <h3 class="contact-title">Teléfono</h3>
+          <p class="contact-info">+57 (1) 800-DIGI-BANK</p>
+          <a href="tel:+5718003444226" class="contact-link">Llamar ahora</a>
+        </div>
+
+        <div class="contact-card">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M20 2H4C2.9 2 2.01 2.9 2.01 4L2 22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2ZM18 14H6V12H18V14ZM18 11H6V9H18V11ZM18 8H6V6H18V8Z" fill="currentColor"/>
+            </svg>
+          </div>
+          <h3 class="contact-title">Chat en vivo</h3>
+          <p class="contact-info">Disponible 24/7</p>
+          <button class="contact-link">Iniciar chat</button>
+        </div>
+      </div>
+      </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <div class="logo-card">
+              <div class="logo-content">
+                <div class="chip">&nbsp;</div>
+                <div class="card-number">•••• 9876</div>
+                <div class="card-icon">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" fill="currentColor"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <span class="brand-name">DigiBank</span>
+          </div>
+          <p class="footer-description">Tu banco digital de confianza. Gestiona tus finanzas de forma segura, rápida y desde cualquier lugar.</p>
+          <div class="social-links">
+            <a href="#" class="social-link" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24V15.563H7.078V12.073H10.125V9.413C10.125 6.387 11.917 4.716 14.658 4.716C15.97 4.716 17.344 4.952 17.344 4.952V7.922H15.83C14.34 7.922 13.875 8.853 13.875 9.808V12.073H17.203L16.67 15.563H13.875V24C19.612 23.094 24 18.1 24 12.073Z" fill="currentColor"/>
+              </svg>
+            </a>
+            <a href="#" class="social-link" aria-label="Twitter">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M23.953 4.57C23.087 4.95 22.164 5.21 21.196 5.33C22.183 4.72 22.945 3.76 23.307 2.62C22.382 3.18 21.357 3.59 20.272 3.8C19.393 2.85 18.144 2.25 16.752 2.25C14.101 2.25 11.957 4.39 11.957 7.04C11.957 7.42 11.995 7.78 12.072 8.12C7.878 7.93 4.189 6.04 1.702 3.15C1.282 3.88 1.042 4.72 1.042 5.62C1.042 7.31 1.903 8.8 3.199 9.67C2.407 9.65 1.663 9.42 1.013 9.05V9.11C1.013 11.43 2.672 13.36 4.87 13.8C4.465 13.91 4.036 13.97 3.595 13.97C3.283 13.97 2.981 13.94 2.686 13.88C3.299 15.78 5.078 17.16 7.175 17.2C5.53 18.48 3.467 19.25 1.226 19.25C0.831 19.25 0.445 19.23 0.063 19.18C2.183 20.54 4.707 21.34 7.419 21.34C16.74 21.34 21.859 14.04 21.859 7.6C21.859 7.39 21.854 7.18 21.845 6.97C22.783 6.28 23.61 5.42 24.263 4.44L23.953 4.57Z" fill="currentColor"/>
+              </svg>
+            </a>
+            <a href="#" class="social-link" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 2.163C15.204 2.163 15.584 2.175 16.85 2.233C20.102 2.381 21.621 3.924 21.769 7.152C21.827 8.417 21.838 8.797 21.838 12.001C21.838 15.206 21.826 15.585 21.769 16.85C21.62 20.075 20.105 21.621 16.85 21.769C15.584 21.827 15.206 21.839 12 21.839C8.796 21.839 8.416 21.827 7.151 21.769C3.891 21.62 2.38 20.07 2.232 16.849C2.174 15.584 2.162 15.205 2.162 12C2.162 8.796 2.175 8.417 2.232 7.151C2.381 3.924 3.896 2.38 7.151 2.232C8.417 2.175 8.796 2.163 12 2.163ZM12 0C8.741 0 8.333 0.014 7.053 0.072C2.695 0.272 0.273 2.69 0.073 7.052C0.014 8.333 0 8.741 0 12C0 15.259 0.014 15.668 0.072 16.948C0.272 21.306 2.69 23.728 7.052 23.928C8.333 23.986 8.741 24 12 24C15.259 24 15.668 23.986 16.948 23.928C21.302 23.728 23.73 21.31 23.927 16.948C23.986 15.668 24 15.259 24 12C24 8.741 23.986 8.333 23.928 7.053C23.732 2.699 21.311 0.273 16.949 0.073C15.668 0.014 15.259 0 12 0ZM12 5.838C8.597 5.838 5.838 8.597 5.838 12C5.838 15.403 8.597 18.163 12 18.163C15.403 18.163 18.162 15.404 18.162 12C18.162 8.597 15.403 5.838 12 5.838ZM12 16C9.791 16 8 14.21 8 12C8 9.791 9.791 8 12 8C14.209 8 16 9.791 16 12C16 14.21 14.209 16 12 16ZM18.406 4.155C17.61 4.155 16.965 4.8 16.965 5.595C16.965 6.39 17.61 7.035 18.406 7.035C19.201 7.035 19.845 6.39 19.845 5.595C19.845 4.8 19.201 4.155 18.406 4.155Z" fill="currentColor"/>
+              </svg>
+            </a>
+            <a href="#" class="social-link" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M20.447 20.452H16.893V14.883C16.893 13.555 16.866 11.846 15.041 11.846C13.188 11.846 12.905 13.291 12.905 14.785V20.452H9.351V9H12.765V10.561H12.811C13.288 9.661 14.448 8.711 16.181 8.711C19.782 8.711 20.448 11.081 20.448 14.166V20.452H20.447ZM5.337 7.433C4.193 7.433 3.274 6.507 3.274 5.368C3.274 4.23 4.194 3.305 5.337 3.305C6.477 3.305 7.401 4.23 7.401 5.368C7.401 6.507 6.476 7.433 5.337 7.433ZM7.119 20.452H3.555V9H7.119V20.452ZM22.225 0H1.771C0.792 0 0 0.774 0 1.729V22.271C0 23.227 0.792 24 1.771 24H22.222C23.2 24 24 23.227 24 22.271V1.729C24 0.774 23.2 0 22.222 0H22.225Z" fill="currentColor"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-links">
+          <div class="footer-column">
+            <h4 class="footer-title">Servicios</h4>
+            <ul class="footer-list">
+              <li><a href="#servicios">Cuentas de ahorro</a></li>
+              <li><a href="#servicios">Ahorro programado</a></li>
+              <li><a href="#servicios">Préstamos digitales</a></li>
+              <li><a href="#servicios">Transferencias</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-column">
+            <h4 class="footer-title">Empresa</h4>
+            <ul class="footer-list">
+              <li><a href="#nosotros">Sobre nosotros</a></li>
+              <li><a href="#contacto">Contacto</a></li>
+              <li><a href="#">Trabaja con nosotros</a></li>
+              <li><a href="#">Prensa</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-column">
+            <h4 class="footer-title">Legal</h4>
+            <ul class="footer-list">
+              <li><a href="#">Términos y condiciones</a></li>
+              <li><a href="#">Política de privacidad</a></li>
+              <li><a href="#">Política de cookies</a></li>
+              <li><a href="#">Defensor del cliente</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-column">
+            <h4 class="footer-title">Soporte</h4>
+            <ul class="footer-list">
+              <li><a href="#">Centro de ayuda</a></li>
+              <li><a href="#">Preguntas frecuentes</a></li>
+              <li><a href="#">Seguridad</a></li>
+              <li><a href="#">Reportar fraude</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="copyright">© 2024 DigiBank. Todos los derechos reservados.</p>
+        <div class="footer-badges">
+          <span class="badge">🔒 Conexión Segura SSL</span>
+          <span class="badge">✓ Certificado por Superintendencia Financiera</span>
+          <span class="badge">🛡️ Depósitos Protegidos</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- BOTÓN SCROLL TO TOP -->
+  <button class="scroll-top" [class.visible]="showScrollTop" (click)="scrollToTop()">
+    <svg viewBox="0 0 24 24" fill="none">
+      <path d="M7 14L12 9L17 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+</div>

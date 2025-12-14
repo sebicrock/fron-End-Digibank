@@ -1,0 +1,308 @@
+<!--<div class="products-page">
+  <div class="page-header">
+    <button class="back-btn" (click)="volver()">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Volver al Perfil
+    </button>
+    
+    <div class="header-content">
+      <div class="header-icon">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 6H2V20C2 21.1 2.9 22 4 22H18V20H4V6ZM20 2H8C6.9 2 6 2.9 6 4V16C6 17.1 6.9 18 8 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2ZM20 16H8V4H20V16ZM10 9H18V11H10V9ZM10 12H14V14H10V12ZM10 6H18V8H10V6Z" fill="currentColor"/>
+        </svg>
+      </div>
+      <div>
+        <h1>Mis Productos Financieros</h1>
+        <p class="subtitle">Administra y consulta todos tus productos bancarios</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="products-container">-->
+    
+    <!-- FILTROS Y BÚSQUEDA 
+    <div class="filters-section">
+      <div class="search-box">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M15.5 14H14.71L14.43 13.73C15.41 12.59 16 11.11 16 9.5C16 5.91 13.09 3 9.5 3C5.91 3 3 5.91 3 9.5C3 13.09 5.91 16 9.5 16C11.11 16 12.59 15.41 13.73 14.43L14 14.71V15.5L19 20.49L20.49 19L15.5 14ZM9.5 14C7.01 14 5 11.99 5 9.5C5 7.01 7.01 5 9.5 5C11.99 5 14 7.01 14 9.5C14 11.99 11.99 14 9.5 14Z" fill="currentColor"/>
+        </svg>
+        <input 
+          type="text" 
+          placeholder="Buscar por número de cuenta, tipo de producto..."
+          [(ngModel)]="searchTerm"
+          (input)="filtrarProductos()"
+        >
+      </div>
+
+      <div class="filter-chips">
+        <button 
+          class="filter-chip" 
+          [class.active]="filtroActivo === 'TODOS'"
+          (click)="cambiarFiltro('TODOS')"
+        >
+          Todos ({{ getTotalProductos() }})
+        </button>
+        <button 
+          class="filter-chip" 
+          [class.active]="filtroActivo === 'CUENTAS'"
+          (click)="cambiarFiltro('CUENTAS')"
+        >
+          Cuentas ({{ cuentas.length }})
+        </button>
+        <button 
+          class="filter-chip" 
+          [class.active]="filtroActivo === 'AHORROS'"
+          (click)="cambiarFiltro('AHORROS')"
+        >
+          Ahorros ({{ ahorros.length }})
+        </button>
+        <button 
+          class="filter-chip" 
+          [class.active]="filtroActivo === 'CDTS'"
+          (click)="cambiarFiltro('CDTS')"
+        >
+          CDTs ({{ cdts.length }})
+        </button>
+        <button 
+          class="filter-chip" 
+          [class.active]="filtroActivo === 'PRESTAMOS'"
+          (click)="cambiarFiltro('PRESTAMOS')"
+        >
+          Préstamos ({{ prestamos.length }})
+        </button>
+        <button 
+          class="filter-chip" 
+          [class.active]="filtroActivo === 'TARJETAS'"
+          (click)="cambiarFiltro('TARJETAS')"
+        >
+          Tarjetas ({{ tarjetas.length }})
+        </button>
+      </div>
+    </div>-->
+
+    <!-- LOADING STATE 
+    <div class="loading-state" *ngIf="isLoading">
+      <div class="spinner-large"></div>
+      <p>Cargando tus productos...</p>
+    </div>-->
+
+    <!-- MENSAJE SI NO HAY PRODUCTOS 
+    <div class="empty-state" *ngIf="productosFiltrados.length === 0 && !isLoading">
+      <div class="empty-icon">📦</div>
+      <h3>No se encontraron productos</h3>
+      <p>No tienes productos que coincidan con tu búsqueda.</p>
+    </div>-->
+
+    <!-- LISTA DE PRODUCTOS 
+    <div class="products-grid" *ngIf="productosFiltrados.length > 0 && !isLoading">-->
+      
+      <!-- CARD GENÉRICA PARA CADA PRODUCTO
+      <div class="product-card" 
+           *ngFor="let producto of productosFiltrados"
+           [ngClass]="producto.tipo.toLowerCase()"> -->
+        
+        <!-- HEADER
+        <div class="card-header">
+          <div class="product-icon" [ngClass]="producto.tipo.toLowerCase() + '-icon'">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path [attr.d]="getIconPath(producto.tipo)" fill="currentColor"/>
+            </svg>
+          </div>
+          <div class="product-info">
+            <span class="product-type">{{ getTipoNombre(producto.tipo) }}</span>
+            <h3 class="product-title">{{ producto.nombre }}</h3>
+            <span class="product-number">N° {{ producto.numero }}</span>
+          </div>
+          <span class="status-badge" 
+                [class.active]="producto.estado === 'ACTIVO' || producto.estado === 'ACTIVA' || producto.estado === 'VIGENTE'"
+                [class.warning]="producto.estado === 'EN_MORA' || producto.estado === 'VENCIDO'"
+                [class.blocked]="producto.estado === 'BLOQUEADA' || producto.estado === 'INACTIVO'">
+            {{ producto.estado }}
+          </span>
+        </div> -->
+
+        <!-- BODY - CUENTA DE AHORROS 
+        <div class="card-body" *ngIf="producto.tipo === 'CUENTA'">
+          <div class="balance-section">
+            <span class="balance-label">Saldo disponible</span>
+            <span class="balance-amount">${{ producto.saldo | number:'1.0-0' }} COP</span>
+          </div>
+
+          <div class="product-details">
+            <div class="detail-item">
+              <span class="detail-label">Titular:</span>
+              <span class="detail-value">{{ producto.titular }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Fecha de apertura:</span>
+              <span class="detail-value">{{ producto.fechaApertura | date:'dd/MM/yyyy' }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Tipo:</span>
+              <span class="detail-value">{{ producto.tipoCuenta }}</span>
+            </div>
+          </div>
+        </div>-->
+
+        <!-- BODY - AHORRO PROGRAMADO
+        <div class="card-body" *ngIf="producto.tipo === 'AHORRO'">
+          <div class="progress-section">
+            <div class="progress-header">
+              <span class="progress-label">Progreso del ahorro</span>
+              <span class="progress-percentage">{{ getProgreso(producto) }}%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" [style.width.%]="getProgreso(producto)"></div>
+            </div>
+            <div class="progress-amounts">
+              <span>${{ producto.montoAcumulado | number:'1.0-0' }}</span>
+              <span>${{ producto.montoObjetivo | number:'1.0-0' }}</span>
+            </div>
+          </div>
+
+          <div class="product-details">
+            <div class="detail-item">
+              <span class="detail-label">Cuota {{ producto.frecuencia }}:</span>
+              <span class="detail-value">${{ producto.cuotaPeriodica | number:'1.0-0' }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Próximo débito:</span>
+              <span class="detail-value">{{ producto.proximoDebito | date:'dd/MM/yyyy' }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Meta:</span>
+              <span class="detail-value">{{ producto.meta }}</span>
+            </div>
+          </div>
+        </div> -->
+
+        <!-- BODY - CDT
+        <div class="card-body" *ngIf="producto.tipo === 'CDT'">
+          <div class="cdt-amounts">
+            <div class="amount-box">
+              <span class="amount-label">Monto invertido</span>
+              <span class="amount-value">${{ producto.montoInicial | number:'1.0-0' }}</span>
+            </div>
+            <div class="amount-box highlight">
+              <span class="amount-label">Valor al vencimiento</span>
+              <span class="amount-value">${{ producto.montoFinal | number:'1.0-0' }}</span>
+            </div>
+          </div>
+
+          <div class="product-details">
+            <div class="detail-item">
+              <span class="detail-label">Tasa E.A.:</span>
+              <span class="detail-value success">{{ producto.tasaInteres }}%</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Plazo:</span>
+              <span class="detail-value">{{ producto.plazo }} días</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Vencimiento:</span>
+              <span class="detail-value warning">{{ producto.fechaVencimiento | date:'dd/MM/yyyy' }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Intereses:</span>
+              <span class="detail-value success">${{ producto.interesesGenerados | number:'1.0-0' }}</span>
+            </div>
+          </div>
+        </div> -->
+
+        <!-- BODY - PRÉSTAMO 
+        <div class="card-body" *ngIf="producto.tipo === 'PRESTAMO'">
+          <div class="loan-progress">
+            <div class="loan-header">
+              <span class="loan-label">Progreso de pago</span>
+              <span class="loan-info">{{ producto.cuotasPagadas }}/{{ producto.cuotasTotales }} cuotas</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill loan" [style.width.%]="(producto.cuotasPagadas / producto.cuotasTotales) * 100"></div>
+            </div>
+          </div>
+
+          <div class="product-details">
+            <div class="detail-item">
+              <span class="detail-label">Monto original:</span>
+              <span class="detail-value">${{ producto.montoOriginal | number:'1.0-0' }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Saldo pendiente:</span>
+              <span class="detail-value warning">${{ producto.saldoPendiente | number:'1.0-0' }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Cuota mensual:</span>
+              <span class="detail-value">${{ producto.cuotaMensual | number:'1.0-0' }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Próximo pago:</span>
+              <span class="detail-value">{{ producto.proximoPago | date:'dd/MM/yyyy' }}</span>
+            </div>
+          </div>
+        </div>-->
+
+        <!-- BODY - TARJETA DE CRÉDITO 
+        <div class="card-body" *ngIf="producto.tipo === 'TARJETA'">
+          <div class="card-visual">
+            <div class="credit-card" 
+                 [class.gold]="producto.tipoTarjeta === 'ORO'" 
+                 [class.platinum]="producto.tipoTarjeta === 'PLATINUM'">
+              <div class="card-chip">💳</div>
+              <div class="card-number">**** **** **** {{ producto.ultimos4Digitos }}</div>
+              <div class="card-holder">{{ producto.titular }}</div>
+              <div class="card-expiry">{{ producto.fechaVencimiento | date:'MM/yy' }}</div>
+            </div>
+          </div>
+
+          <div class="cupo-info">
+            <div class="cupo-header">
+              <span>Cupo disponible</span>
+              <span class="cupo-percentage">{{ getCupoDisponiblePorcentaje(producto) }}%</span>
+            </div>
+            <div class="cupo-bar">
+              <div class="cupo-used" [style.width.%]="getCupoUsadoPorcentaje(producto)"></div>
+            </div>
+            <div class="cupo-amounts">
+              <span class="available">${{ producto.cupoDisponible | number:'1.0-0' }}</span>
+              <span class="total">de ${{ producto.cupoTotal | number:'1.0-0' }}</span>
+            </div>
+          </div>
+
+          <div class="product-details">
+            <div class="detail-item">
+              <span class="detail-label">Saldo total:</span>
+              <span class="detail-value warning">${{ producto.saldoTotal | number:'1.0-0' }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Pago mínimo:</span>
+              <span class="detail-value">${{ producto.pagoMinimo | number:'1.0-0' }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Fecha límite:</span>
+              <span class="detail-value">{{ producto.fechaLimitePago | date:'dd/MM/yyyy' }}</span>
+            </div>
+          </div>
+        </div>-->
+
+        <!-- FOOTER 
+        <div class="card-footer">
+          <button class="btn-outline" (click)="accionSecundaria(producto)">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M19.43 12.98C19.47 12.66 19.5 12.34 19.5 12C19.5 11.66 19.47 11.34 19.43 11.02L21.54 9.37C21.73 9.22 21.78 8.95 21.66 8.73L19.66 5.27C19.54 5.05 19.27 4.97 19.05 5.05L16.56 6.05C16.04 5.65 15.48 5.32 14.87 5.07L14.49 2.42C14.46 2.18 14.25 2 14 2H10C9.75 2 9.54 2.18 9.51 2.42L9.13 5.07C8.52 5.32 7.96 5.66 7.44 6.05L4.95 5.05C4.72 4.96 4.46 5.05 4.34 5.27L2.34 8.73C2.21 8.95 2.27 9.22 2.46 9.37L4.57 11.02C4.53 11.34 4.5 11.67 4.5 12C4.5 12.33 4.53 12.66 4.57 12.98L2.46 14.63C2.27 14.78 2.22 15.05 2.34 15.27L4.34 18.73C4.46 18.95 4.73 19.03 4.95 18.95L7.44 17.95C7.96 18.35 8.52 18.68 9.13 18.93L9.51 21.58C9.54 21.82 9.75 22 10 22H14C14.25 22 14.46 21.82 14.49 21.58L14.87 18.93C15.48 18.68 16.04 18.34 16.56 17.95L19.05 18.95C19.28 19.04 19.54 18.95 19.66 18.73L21.66 15.27C21.78 15.05 21.73 14.78 21.54 14.63L19.43 12.98ZM12 15.5C10.07 15.5 8.5 13.93 8.5 12C8.5 10.07 10.07 8.5 12 8.5C13.93 8.5 15.5 10.07 15.5 12C15.5 13.93 13.93 15.5 12 15.5Z" fill="currentColor"/>
+            </svg>
+            {{ getTextoBotonSecundario(producto.tipo) }}
+          </button>
+          <button class="btn-primary" (click)="verDetalle(producto)">
+            Ver Detalle
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M9 5L16 12L9 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div> -->

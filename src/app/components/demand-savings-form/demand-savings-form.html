@@ -1,0 +1,524 @@
+<div class="form-page">
+  <div class="page-header">
+    <button class="back-btn" (click)="volver()">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Volver a mi perfil
+    </button>
+    
+    <div class="header-content">
+      <div class="header-icon">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M21 18V19C21 20.1 20.1 21 19 21H5C3.89 21 3 20.1 3 19V5C3 3.9 3.89 3 5 3H19C20.1 3 21 3.9 21 5V6H12C10.89 6 10 6.9 10 8V16C10 17.1 10.89 18 12 18H21ZM12 16H22V8H12V16ZM16 13.5C15.17 13.5 14.5 12.83 14.5 12C14.5 11.17 15.17 10.5 16 10.5C16.83 10.5 17.5 11.17 17.5 12C17.5 12.83 16.83 13.5 16 13.5Z" fill="currentColor"/>
+        </svg>
+      </div>
+      <div>
+        <h1>Abrir Cuenta de Ahorros</h1>
+        <p class="subtitle">Complete el formulario para crear su nueva cuenta de ahorros</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-container">
+    <!-- BANNER DE BENEFICIOS -->
+    <div class="info-banner">
+      <div class="info-icon">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V15H13V17ZM13 13H11V7H13V13Z" fill="currentColor"/>
+        </svg>
+      </div>
+      <div class="info-content">
+        <h3>Beneficios de tu Cuenta de Ahorros</h3>
+        <ul class="benefits-list">
+          <li>
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+            </svg>
+            <span>Sin cuota de manejo los primeros 6 meses</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+            </svg>
+            <span>Intereses del 4.5% E.A.</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+            </svg>
+            <span>Retiros ilimitados sin costo</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+            </svg>
+            <span>Tarjeta débito gratuita</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <form (ngSubmit)="onSubmit()" #accountForm="ngForm">
+      
+      <!-- SECCIÓN: DATOS PERSONALES -->
+      <div class="form-section">
+        <h2 class="section-title">
+          <div class="title-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z" fill="currentColor"/>
+            </svg>
+          </div>
+          <span>Datos Personales</span>
+        </h2>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName">Nombres <span class="required">*</span></label>
+            <input 
+              type="text" 
+              id="firstName" 
+              name="firstName"
+              [(ngModel)]="accountData.firstName"
+              placeholder="Ingrese sus nombres"
+              required
+              #firstName="ngModel"
+            >
+            <small class="error-hint" *ngIf="firstName.invalid && firstName.touched">
+              Este campo es obligatorio
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="lastName">Apellidos <span class="required">*</span></label>
+            <input 
+              type="text" 
+              id="lastName" 
+              name="lastName"
+              [(ngModel)]="accountData.lastName"
+              placeholder="Ingrese sus apellidos"
+              required
+              #lastName="ngModel"
+            >
+            <small class="error-hint" *ngIf="lastName.invalid && lastName.touched">
+              Este campo es obligatorio
+            </small>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="documentType">Tipo de Documento <span class="required">*</span></label>
+            <select 
+              id="documentType" 
+              name="documentType"
+              [(ngModel)]="accountData.documentType"
+              required
+              #documentType="ngModel"
+            >
+              <option value="">Seleccione...</option>
+              <option value="CC">Cédula de Ciudadanía</option>
+              <option value="CE">Cédula de Extranjería</option>
+              <option value="TI">Tarjeta de Identidad</option>
+              <option value="PAS">Pasaporte</option>
+            </select>
+            <small class="error-hint" *ngIf="documentType.invalid && documentType.touched">
+              Debe seleccionar un tipo
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="documentNumber">Número de Documento <span class="required">*</span></label>
+            <input 
+              type="text" 
+              id="documentNumber" 
+              name="documentNumber"
+              [(ngModel)]="accountData.documentNumber"
+              placeholder="Ej: 1234567890"
+              required
+              pattern="[0-9]+"
+              #documentNumber="ngModel"
+            >
+            <small class="error-hint" *ngIf="documentNumber.invalid && documentNumber.touched">
+              Solo números permitidos
+            </small>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="birthDate">Fecha de Nacimiento <span class="required">*</span></label>
+            <input 
+              type="date" 
+              id="birthDate" 
+              name="birthDate"
+              [(ngModel)]="accountData.birthDate"
+              required
+              #birthDate="ngModel"
+            >
+            <small class="error-hint" *ngIf="birthDate.invalid && birthDate.touched">
+              Este campo es obligatorio
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="gender">Género <span class="required">*</span></label>
+            <select 
+              id="gender" 
+              name="gender"
+              [(ngModel)]="accountData.gender"
+              required
+              #gender="ngModel"
+            >
+              <option value="">Seleccione...</option>
+              <option value="M">Masculino</option>
+              <option value="F">Femenino</option>
+              <option value="O">Otro</option>
+            </select>
+            <small class="error-hint" *ngIf="gender.invalid && gender.touched">
+              Debe seleccionar un género
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECCIÓN: INFORMACIÓN DE CONTACTO -->
+      <div class="form-section">
+        <h2 class="section-title">
+          <div class="title-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20 4H4C2.89 4 2 4.89 2 6V18C2 19.11 2.89 20 4 20H20C21.11 20 22 19.11 22 18V6C22 4.89 21.11 4 20 4ZM20 8L12 13L4 8V6L12 11L20 6V8Z" fill="currentColor"/>
+            </svg>
+          </div>
+          <span>Información de Contacto</span>
+        </h2>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">Correo Electrónico <span class="required">*</span></label>
+            <input 
+              type="email" 
+              id="email" 
+              name="email"
+              [(ngModel)]="accountData.email"
+              placeholder="correo@ejemplo.com"
+              required
+              email
+              #email="ngModel"
+            >
+            <small class="input-hint" *ngIf="email.valid">Se enviará confirmación a este correo</small>
+            <small class="error-hint" *ngIf="email.invalid && email.touched">
+              Ingrese un correo válido
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Teléfono Celular <span class="required">*</span></label>
+            <input 
+              type="tel" 
+              id="phone" 
+              name="phone"
+              [(ngModel)]="accountData.phone"
+              placeholder="3001234567"
+              required
+              pattern="[0-9]{10}"
+              #phone="ngModel"
+            >
+            <small class="error-hint" *ngIf="phone.invalid && phone.touched">
+              Ingrese 10 dígitos
+            </small>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group full-width">
+            <label for="address">Dirección de Residencia <span class="required">*</span></label>
+            <input 
+              type="text" 
+              id="address" 
+              name="address"
+              [(ngModel)]="accountData.address"
+              placeholder="Calle 123 # 45-67"
+              required
+              #address="ngModel"
+            >
+            <small class="error-hint" *ngIf="address.invalid && address.touched">
+              Este campo es obligatorio
+            </small>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="city">Ciudad <span class="required">*</span></label>
+            <input 
+              type="text" 
+              id="city" 
+              name="city"
+              [(ngModel)]="accountData.city"
+              placeholder="Bogotá"
+              required
+              #city="ngModel"
+            >
+            <small class="error-hint" *ngIf="city.invalid && city.touched">
+              Este campo es obligatorio
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="department">Departamento <span class="required">*</span></label>
+            <select 
+              id="department" 
+              name="department"
+              [(ngModel)]="accountData.department"
+              required
+              #department="ngModel"
+            >
+              <option value="">Seleccione...</option>
+              <option value="Amazonas">Amazonas</option>
+              <option value="Antioquia">Antioquia</option>
+              <option value="Arauca">Arauca</option>
+              <option value="Atlántico">Atlántico</option>
+              <option value="Bolívar">Bolívar</option>
+              <option value="Boyacá">Boyacá</option>
+              <option value="Caldas">Caldas</option>
+              <option value="Caquetá">Caquetá</option>
+              <option value="Casanare">Casanare</option>
+              <option value="Cauca">Cauca</option>
+              <option value="Cesar">Cesar</option>
+              <option value="Chocó">Chocó</option>
+              <option value="Córdoba">Córdoba</option>
+              <option value="Cundinamarca">Cundinamarca</option>
+              <option value="Guainía">Guainía</option>
+              <option value="Guaviare">Guaviare</option>
+              <option value="Huila">Huila</option>
+              <option value="La Guajira">La Guajira</option>
+              <option value="Magdalena">Magdalena</option>
+              <option value="Meta">Meta</option>
+              <option value="Nariño">Nariño</option>
+              <option value="Norte de Santander">Norte de Santander</option>
+              <option value="Putumayo">Putumayo</option>
+              <option value="Quindío">Quindío</option>
+              <option value="Risaralda">Risaralda</option>
+              <option value="San Andrés">San Andrés y Providencia</option>
+              <option value="Santander">Santander</option>
+              <option value="Sucre">Sucre</option>
+              <option value="Tolima">Tolima</option>
+              <option value="Valle del Cauca">Valle del Cauca</option>
+              <option value="Vaupés">Vaupés</option>
+              <option value="Vichada">Vichada</option>
+            </select>
+            <small class="error-hint" *ngIf="department.invalid && department.touched">
+              Debe seleccionar un departamento
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECCIÓN: TIPO DE CUENTA -->
+      <div class="form-section">
+        <h2 class="section-title">
+          <div class="title-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M21 18V19C21 20.1 20.1 21 19 21H5C3.89 21 3 20.1 3 19V5C3 3.9 3.89 3 5 3H19C20.1 3 21 3.9 21 5V6H12C10.89 6 10 6.9 10 8V16C10 17.1 10.89 18 12 18H21ZM12 16H22V8H12V16ZM16 13.5C15.17 13.5 14.5 12.83 14.5 12C14.5 11.17 15.17 10.5 16 10.5C16.83 10.5 17.5 11.17 17.5 12C17.5 12.83 16.83 13.5 16 13.5Z" fill="currentColor"/>
+            </svg>
+          </div>
+          <span>Tipo de Cuenta</span>
+        </h2>
+
+        <div class="account-types">
+          <label class="account-type-card" [class.selected]="accountData.type === 'basic'">
+            <input type="radio" name="accountType" value="basic" [(ngModel)]="accountData.type" required>
+            <div class="card-content">
+              <div class="type-icon">💰</div>
+              <h3>Cuenta Básica</h3>
+              <p>Para uso personal, sin monto mínimo</p>
+              <ul class="features-list">
+                <li>Sin cuota de manejo</li>
+                <li>Tarjeta débito gratis</li>
+                <li>Banca en línea</li>
+              </ul>
+              <span class="badge">Recomendada</span>
+            </div>
+          </label>
+
+          <label class="account-type-card" [class.selected]="accountData.type === 'premium'">
+            <input type="radio" name="accountType" value="premium" [(ngModel)]="accountData.type">
+            <div class="card-content">
+              <div class="type-icon">⭐</div>
+              <h3>Cuenta Premium</h3>
+              <p>Mayores beneficios e intereses</p>
+              <ul class="features-list">
+                <li>Intereses del 5.5% E.A.</li>
+                <li>Asesor personalizado</li>
+                <li>Seguros incluidos</li>
+              </ul>
+              <span class="badge blue">Premium</span>
+            </div>
+          </label>
+
+          <label class="account-type-card" [class.selected]="accountData.type === 'empresarial'">
+            <input type="radio" name="accountType" value="empresarial" [(ngModel)]="accountData.type">
+            <div class="card-content">
+              <div class="type-icon">🏢</div>
+              <h3>Cuenta Empresarial</h3>
+              <p>Para empresas y negocios</p>
+              <ul class="features-list">
+                <li>Múltiples usuarios</li>
+                <li>Transferencias ACH</li>
+                <li>Reportes detallados</li>
+              </ul>
+              <span class="badge purple">Negocios</span>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- SECCIÓN: DEPÓSITO INICIAL -->
+      <div class="form-section">
+        <h2 class="section-title">
+          <div class="title-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13.41 18.09V20H10.74V18.07C9.03 17.71 7.58 16.61 7.5 14.67H9.75C9.82 15.74 10.59 16.42 12.07 16.42C13.71 16.42 14.19 15.56 14.19 14.97C14.19 14.22 13.71 13.54 11.94 13.12C9.61 12.59 7.5 11.79 7.5 9.5C7.5 7.73 8.86 6.42 10.74 6.05V4H13.41V6.07C15.35 6.42 16.37 7.74 16.43 9.5H14.19C14.15 8.36 13.46 7.73 12.07 7.73C10.59 7.73 9.95 8.38 9.95 9.23C9.95 9.93 10.43 10.5 12.25 10.95C14.07 11.4 16.64 12.03 16.64 14.97C16.63 16.83 15.38 17.93 13.41 18.09Z" fill="currentColor"/>
+            </svg>
+          </div>
+          <span>Depósito Inicial</span>
+        </h2>
+
+        <div class="form-row">
+          <div class="form-group full-width">
+            <label for="initialDeposit">Monto del depósito inicial <span class="required">*</span></label>
+            <div class="input-with-icon">
+              <span class="currency">$</span>
+              <input 
+                type="number" 
+                id="initialDeposit" 
+                name="initialDeposit"
+                [(ngModel)]="accountData.initialDeposit"
+                placeholder="100000"
+                min="50000"
+                required
+                #initialDeposit="ngModel"
+              >
+            </div>
+            <small class="input-hint" *ngIf="initialDeposit.valid">Monto mínimo: $50,000 COP</small>
+            <small class="error-hint" *ngIf="initialDeposit.invalid && initialDeposit.touched">
+              El monto mínimo es $50,000
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECCIÓN: TARJETA DÉBITO -->
+      <div class="form-section">
+        <h2 class="section-title">
+          <div class="title-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20 4H4C2.89 4 2.01 4.89 2.01 6L2 18C2 19.11 2.89 20 4 20H20C21.11 20 22 19.11 22 18V6C22 4.89 21.11 4 20 4ZM20 18H4V12H20V18ZM20 8H4V6H20V8Z" fill="currentColor"/>
+            </svg>
+          </div>
+          <span>Tarjeta Débito (Opcional)</span>
+        </h2>
+
+        <div class="checkbox-group">
+          <label class="checkbox-card" [class.checked]="accountData.includeDebitCard">
+            <input type="checkbox" name="debitCard" [(ngModel)]="accountData.includeDebitCard">
+            <div class="checkbox-content">
+              <div class="checkbox-icon">💳</div>
+              <div class="checkbox-info">
+                <h4>Solicitar Tarjeta Débito</h4>
+                <p>Tarjeta física sin costo adicional. Llegará en 5-7 días hábiles a tu dirección registrada</p>
+                <div class="checkbox-features">
+                  <span>✓ Sin cuota de manejo</span>
+                  <span>✓ Compras internacionales</span>
+                  <span>✓ Retiros en cajeros</span>
+                </div>
+              </div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- SECCIÓN: NOTIFICACIONES -->
+      <div class="form-section">
+        <h2 class="section-title">
+          <div class="title-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 22C10.9 22 10 21.1 10 20H14C14 21.1 13.1 22 12 22ZM18 16V11C18 7.93 16.37 5.36 13.5 4.68V4C13.5 3.17 12.83 2.5 12 2.5C11.17 2.5 10.5 3.17 10.5 4V4.68C7.64 5.36 6 7.92 6 11V16L4 18V19H20V18L18 16Z" fill="currentColor"/>
+            </svg>
+          </div>
+          <span>Notificaciones</span>
+        </h2>
+
+        <div class="checkbox-row">
+          <label class="checkbox-label" [class.active]="accountData.emailNotifications">
+            <input type="checkbox" name="emailNotif" [(ngModel)]="accountData.emailNotifications" checked>
+            <div class="checkbox-box">
+              <svg *ngIf="accountData.emailNotifications" viewBox="0 0 24 24" fill="none">
+                <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+              </svg>
+            </div>
+            <span>Notificaciones por email</span>
+          </label>
+          
+          <label class="checkbox-label" [class.active]="accountData.smsNotifications">
+            <input type="checkbox" name="smsNotif" [(ngModel)]="accountData.smsNotifications">
+            <div class="checkbox-box">
+              <svg *ngIf="accountData.smsNotifications" viewBox="0 0 24 24" fill="none">
+                <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+              </svg>
+            </div>
+            <span>Notificaciones por SMS</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- TÉRMINOS Y CONDICIONES -->
+      <div class="terms-section">
+        <label class="terms-checkbox">
+          <input type="checkbox" name="terms" [(ngModel)]="accountData.acceptTerms" required #terms="ngModel">
+          <div class="terms-content">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+            </svg>
+            <span>Acepto los <a href="#" (click)="$event.preventDefault()">términos y condiciones</a> de la cuenta de ahorros y autorizo el débito del monto inicial <span class="required">*</span></span>
+          </div>
+        </label>
+        <small class="error-hint" *ngIf="terms.invalid && terms.touched">
+          Debe aceptar los términos para continuar
+        </small>
+      </div>
+
+      <!-- MENSAJE DE RESPUESTA -->
+      <div *ngIf="mensaje" class="alert" [class.alert-success]="mensajeTipo === 'success'" [class.alert-error]="mensajeTipo === 'error'">
+        <svg *ngIf="mensajeTipo === 'success'" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+        </svg>
+        <svg *ngIf="mensajeTipo === 'error'" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V15H13V17ZM13 13H11V7H13V13Z" fill="currentColor"/>
+        </svg>
+        <span>{{ mensaje }}</span>
+      </div>
+
+      <!-- BOTONES DE ACCIÓN -->
+      <div class="form-actions">
+        <button type="button" class="btn-secondary" (click)="volver()">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z" fill="currentColor"/>
+          </svg>
+          <span>Cancelar</span>
+        </button>
+        <button type="submit" class="btn-primary" [disabled]="!accountForm.valid || isSubmitting">
+          <span *ngIf="!isSubmitting">Crear Cuenta de Ahorros</span>
+          <span *ngIf="isSubmitting" class="loading-content">
+            <div class="spinner"></div>
+            Procesando...
+          </span>
+          <svg *ngIf="!isSubmitting" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 5L16 12L9 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

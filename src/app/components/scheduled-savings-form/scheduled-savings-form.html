@@ -1,0 +1,486 @@
+<div class="form-page">
+  <div class="page-header">
+    <button class="back-btn" (click)="volver()">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Volver a mi perfil
+    </button>
+    
+    <div class="header-content">
+      <div class="header-icon">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M19 3H18V1H16V3H8V1H6V3H5C3.89 3 3 3.9 3 5V19C3 20.1 3.89 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM19 19H5V9H19V19ZM19 7H5V5H19V7ZM7 11H12V16H7V11Z" fill="currentColor"/>
+        </svg>
+      </div>
+      <div>
+        <h1>Crear Ahorro Programado</h1>
+        <p class="subtitle">Configure su plan de ahorro con metas y plazos definidos</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-container">
+    <!-- BANNER DE BENEFICIOS -->
+    <div class="info-banner">
+      <div class="info-icon">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V15H13V17ZM13 13H11V7H13V13Z" fill="currentColor"/>
+        </svg>
+      </div>
+      <div class="info-content">
+        <h3>Beneficios del Ahorro Programado</h3>
+        <ul class="benefits-list">
+          <li>
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+            </svg>
+            <span>Intereses hasta del 6.5% E.A.</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+            </svg>
+            <span>Débitos automáticos sin comisión</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+            </svg>
+            <span>Flexibilidad para modificar el plan</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+            </svg>
+            <span>Recordatorios y seguimiento de metas</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <form (ngSubmit)="onSubmit()" #savingsForm="ngForm">
+      
+      <!-- SECCIÓN: DATOS PERSONALES -->
+      <div class="form-section">
+        <h2 class="section-title">
+          <div class="title-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z" fill="currentColor"/>
+            </svg>
+          </div>
+          <span>Datos Personales</span>
+        </h2>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName">Nombres <span class="required">*</span></label>
+            <input 
+              type="text" 
+              id="firstName" 
+              name="firstName"
+              [(ngModel)]="savingsData.firstName"
+              placeholder="Ingrese sus nombres"
+              required
+              #firstName="ngModel"
+            >
+            <small class="error-hint" *ngIf="firstName.invalid && firstName.touched">
+              Este campo es obligatorio
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="lastName">Apellidos <span class="required">*</span></label>
+            <input 
+              type="text" 
+              id="lastName" 
+              name="lastName"
+              [(ngModel)]="savingsData.lastName"
+              placeholder="Ingrese sus apellidos"
+              required
+              #lastName="ngModel"
+            >
+            <small class="error-hint" *ngIf="lastName.invalid && lastName.touched">
+              Este campo es obligatorio
+            </small>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="documentType">Tipo de Documento <span class="required">*</span></label>
+            <select 
+              id="documentType" 
+              name="documentType"
+              [(ngModel)]="savingsData.documentType"
+              required
+              #documentType="ngModel"
+            >
+              <option value="">Seleccione...</option>
+              <option value="CC">Cédula de Ciudadanía</option>
+              <option value="CE">Cédula de Extranjería</option>
+              <option value="TI">Tarjeta de Identidad</option>
+              <option value="PAS">Pasaporte</option>
+            </select>
+            <small class="error-hint" *ngIf="documentType.invalid && documentType.touched">
+              Debe seleccionar un tipo
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="documentNumber">Número de Documento <span class="required">*</span></label>
+            <input 
+              type="text" 
+              id="documentNumber" 
+              name="documentNumber"
+              [(ngModel)]="savingsData.documentNumber"
+              placeholder="Ej: 1234567890"
+              required
+              pattern="[0-9]+"
+              #documentNumber="ngModel"
+            >
+            <small class="error-hint" *ngIf="documentNumber.invalid && documentNumber.touched">
+              Solo números permitidos
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECCIÓN: CONFIGURACIÓN DEL AHORRO -->
+      <div class="form-section">
+        <h2 class="section-title">
+          <div class="title-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M11.8 10.9C9.53 10.31 8.8 9.7 8.8 8.75C8.8 7.66 9.81 6.9 11.5 6.9C13.28 6.9 13.94 7.75 14 9H16.21C16.14 7.28 15.09 5.7 13 5.19V3H10V5.16C8.06 5.58 6.5 6.84 6.5 8.77C6.5 11.08 8.41 12.23 11.2 12.9C13.7 13.5 14.2 14.38 14.2 15.31C14.2 16 13.71 17.1 11.5 17.1C9.44 17.1 8.63 16.18 8.52 15H6.32C6.44 17.19 8.08 18.42 10 18.83V21H13V18.85C14.95 18.48 16.5 17.35 16.5 15.3C16.5 12.46 14.07 11.49 11.8 10.9Z" fill="currentColor"/>
+            </svg>
+          </div>
+          <span>Configuración del Ahorro</span>
+        </h2>
+
+        <div class="form-row">
+          <div class="form-group full-width">
+            <label for="savingsGoal">Meta de Ahorro <span class="required">*</span></label>
+            <input 
+              type="text" 
+              id="savingsGoal" 
+              name="savingsGoal"
+              [(ngModel)]="savingsData.savingsGoal"
+              placeholder="Ej: Vacaciones, Auto nuevo, Estudio"
+              required
+              #savingsGoal="ngModel"
+            >
+            <small class="input-hint" *ngIf="savingsGoal.valid">¿Para qué está ahorrando?</small>
+            <small class="error-hint" *ngIf="savingsGoal.invalid && savingsGoal.touched">
+              Defina su meta de ahorro
+            </small>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="targetAmount">Monto objetivo <span class="required">*</span></label>
+            <div class="input-with-icon">
+              <span class="currency">$</span>
+              <input 
+                type="number" 
+                id="targetAmount" 
+                name="targetAmount"
+                [(ngModel)]="savingsData.targetAmount"
+                placeholder="5000000"
+                min="100000"
+                required
+                #targetAmount="ngModel"
+                (input)="calcularPago()"
+              >
+            </div>
+            <small class="input-hint" *ngIf="targetAmount.valid">¿Cuánto desea ahorrar en total?</small>
+            <small class="error-hint" *ngIf="targetAmount.invalid && targetAmount.touched">
+              Ingrese un monto válido (mín. $100,000)
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="termMonths">Plazo (meses) <span class="required">*</span></label>
+            <select 
+              id="termMonths" 
+              name="termMonths"
+              [(ngModel)]="savingsData.termMonths"
+              required
+              #termMonths="ngModel"
+              (change)="calcularPago()"
+            >
+              <option value="">Seleccione...</option>
+              <option value="6">6 meses</option>
+              <option value="12">12 meses (1 año)</option>
+              <option value="18">18 meses</option>
+              <option value="24">24 meses (2 años)</option>
+              <option value="36">36 meses (3 años)</option>
+              <option value="48">48 meses (4 años)</option>
+              <option value="60">60 meses (5 años)</option>
+            </select>
+            <small class="error-hint" *ngIf="termMonths.invalid && termMonths.touched">
+              Seleccione un plazo
+            </small>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="frequency">Frecuencia de ahorro <span class="required">*</span></label>
+            <select 
+              id="frequency" 
+              name="frequency"
+              [(ngModel)]="savingsData.frequency"
+              required
+              #frequency="ngModel"
+              (change)="calcularPago()"
+            >
+              <option value="">Seleccione...</option>
+              <option value="SEMANAL">Semanal</option>
+              <option value="QUINCENAL">Quincenal</option>
+              <option value="MENSUAL">Mensual</option>
+            </select>
+            <small class="error-hint" *ngIf="frequency.invalid && frequency.touched">
+              Seleccione la frecuencia
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="startDate">Fecha de inicio <span class="required">*</span></label>
+            <input 
+              type="date" 
+              id="startDate" 
+              name="startDate"
+              [(ngModel)]="savingsData.startDate"
+              [min]="minDate"
+              required
+              #startDate="ngModel"
+            >
+            <small class="error-hint" *ngIf="startDate.invalid && startDate.touched">
+              Seleccione una fecha válida
+            </small>
+          </div>
+        </div>
+
+        <!-- RESUMEN DE PAGOS -->
+        <div class="payment-summary" *ngIf="pagoCalculado > 0">
+          <div class="summary-icon">💰</div>
+          <div class="summary-content">
+            <h4>Resumen del Plan</h4>
+            <div class="summary-details">
+              <div class="summary-item">
+                <span class="label">Ahorro {{ savingsData.frequency.toLowerCase() }}:</span>
+                <span class="value">${{ pagoCalculado | number:'1.0-0' }} COP</span>
+              </div>
+              <div class="summary-item">
+                <span class="label">Total de {{ getNumPagos() }} pagos:</span>
+                <span class="value">${{ savingsData.targetAmount | number:'1.0-0' }} COP</span>
+              </div>
+              <div class="summary-item highlight">
+                <span class="label">Interés estimado ({{ tasaInteres }}% E.A.):</span>
+                <span class="value">+${{ interesEstimado | number:'1.0-0' }} COP</span>
+              </div>
+              <div class="summary-item total">
+                <span class="label">Total al vencimiento:</span>
+                <span class="value">${{ totalConIntereses | number:'1.0-0' }} COP</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECCIÓN: CUENTA DE DÉBITO -->
+      <div class="form-section">
+        <h2 class="section-title">
+          <div class="title-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20 4H4C2.89 4 2.01 4.89 2.01 6L2 18C2 19.11 2.89 20 4 20H20C21.11 20 22 19.11 22 18V6C22 4.89 21.11 4 20 4ZM20 18H4V12H20V18ZM20 8H4V6H20V8Z" fill="currentColor"/>
+            </svg>
+          </div>
+          <span>Cuenta de Débito Automático</span>
+        </h2>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="debitAccountType">Tipo de cuenta <span class="required">*</span></label>
+            <select 
+              id="debitAccountType" 
+              name="debitAccountType"
+              [(ngModel)]="savingsData.debitAccountType"
+              required
+              #debitAccountType="ngModel"
+            >
+              <option value="">Seleccione...</option>
+              <option value="AHORROS">Cuenta de Ahorros</option>
+              <option value="CORRIENTE">Cuenta Corriente</option>
+            </select>
+            <small class="error-hint" *ngIf="debitAccountType.invalid && debitAccountType.touched">
+              Seleccione el tipo de cuenta
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="debitAccountNumber">Número de cuenta <span class="required">*</span></label>
+            <input 
+              type="text" 
+              id="debitAccountNumber" 
+              name="debitAccountNumber"
+              [(ngModel)]="savingsData.debitAccountNumber"
+              placeholder="1234567890"
+              required
+              pattern="[0-9]{10,16}"
+              #debitAccountNumber="ngModel"
+            >
+            <small class="input-hint" *ngIf="debitAccountNumber.valid">Cuenta desde donde se debitará</small>
+            <small class="error-hint" *ngIf="debitAccountNumber.invalid && debitAccountNumber.touched">
+              Ingrese un número de cuenta válido
+            </small>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="bankName">Banco <span class="required">*</span></label>
+            <select 
+              id="bankName" 
+              name="bankName"
+              [(ngModel)]="savingsData.bankName"
+              required
+              #bankName="ngModel"
+            >
+              <option value="">Seleccione...</option>
+              <option value="MISMO_BANCO">Mismo banco</option>
+              <option value="BANCOLOMBIA">Bancolombia</option>
+              <option value="BANCO_BOGOTA">Banco de Bogotá</option>
+              <option value="DAVIVIENDA">Davivienda</option>
+              <option value="BBVA">BBVA Colombia</option>
+              <option value="SCOTIABANK">Scotiabank Colpatria</option>
+              <option value="BANCO_CAJA_SOCIAL">Banco Caja Social</option>
+              <option value="BANCO_POPULAR">Banco Popular</option>
+              <option value="BANCO_OCCIDENTE">Banco de Occidente</option>
+              <option value="CITIBANK">Citibank</option>
+            </select>
+            <small class="error-hint" *ngIf="bankName.invalid && bankName.touched">
+              Seleccione el banco
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="debitDay">Día de débito <span class="required">*</span></label>
+            <select 
+              id="debitDay" 
+              name="debitDay"
+              [(ngModel)]="savingsData.debitDay"
+              required
+              #debitDay="ngModel"
+            >
+              <option value="">Seleccione...</option>
+              <option value="1">Día 1</option>
+              <option value="5">Día 5</option>
+              <option value="10">Día 10</option>
+              <option value="15">Día 15</option>
+              <option value="20">Día 20</option>
+              <option value="25">Día 25</option>
+              <option value="30">Último día del mes</option>
+            </select>
+            <small class="input-hint" *ngIf="debitDay.valid">Día del mes para el débito</small>
+            <small class="error-hint" *ngIf="debitDay.invalid && debitDay.touched">
+              Seleccione el día de débito
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECCIÓN: NOTIFICACIONES -->
+      <div class="form-section">
+        <h2 class="section-title">
+          <div class="title-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 22C10.9 22 10 21.1 10 20H14C14 21.1 13.1 22 12 22ZM18 16V11C18 7.93 16.37 5.36 13.5 4.68V4C13.5 3.17 12.83 2.5 12 2.5C11.17 2.5 10.5 3.17 10.5 4V4.68C7.64 5.36 6 7.92 6 11V16L4 18V19H20V18L18 16Z" fill="currentColor"/>
+            </svg>
+          </div>
+          <span>Notificaciones y Recordatorios</span>
+        </h2>
+
+        <div class="checkbox-row">
+          <label class="checkbox-label" [class.active]="savingsData.emailNotifications">
+            <input type="checkbox" name="emailNotif" [(ngModel)]="savingsData.emailNotifications" checked>
+            <div class="checkbox-box">
+              <svg *ngIf="savingsData.emailNotifications" viewBox="0 0 24 24" fill="none">
+                <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+              </svg>
+            </div>
+            <span>Recordatorios por email</span>
+          </label>
+          
+          <label class="checkbox-label" [class.active]="savingsData.smsNotifications">
+            <input type="checkbox" name="smsNotif" [(ngModel)]="savingsData.smsNotifications">
+            <div class="checkbox-box">
+              <svg *ngIf="savingsData.smsNotifications" viewBox="0 0 24 24" fill="none">
+                <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+              </svg>
+            </div>
+            <span>Recordatorios por SMS</span>
+          </label>
+
+          <label class="checkbox-label" [class.active]="savingsData.goalReminders">
+            <input type="checkbox" name="goalRemind" [(ngModel)]="savingsData.goalReminders" checked>
+            <div class="checkbox-box">
+              <svg *ngIf="savingsData.goalReminders" viewBox="0 0 24 24" fill="none">
+                <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+              </svg>
+            </div>
+            <span>Progreso de la meta</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- TÉRMINOS Y CONDICIONES -->
+      <div class="terms-section">
+        <label class="terms-checkbox">
+          <input type="checkbox" name="terms" [(ngModel)]="savingsData.acceptTerms" required #terms="ngModel">
+          <div class="terms-content">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+            </svg>
+            <span>Acepto los <a href="#" (click)="$event.preventDefault()">términos y condiciones</a> del ahorro programado y autorizo los débitos automáticos según la frecuencia seleccionada <span class="required">*</span></span>
+          </div>
+        </label>
+        <small class="error-hint" *ngIf="terms.invalid && terms.touched">
+          Debe aceptar los términos para continuar
+        </small>
+      </div>
+
+      <!-- MENSAJE DE RESPUESTA -->
+      <div *ngIf="mensaje" class="alert" [class.alert-success]="mensajeTipo === 'success'" [class.alert-error]="mensajeTipo === 'error'">
+        <svg *ngIf="mensajeTipo === 'success'" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+        </svg>
+        <svg *ngIf="mensajeTipo === 'error'" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V15H13V17ZM13 13H11V7H13V13Z" fill="currentColor"/>
+        </svg>
+        <span>{{ mensaje }}</span>
+      </div>
+
+      <!-- BOTONES DE ACCIÓN -->
+      <div class="form-actions">
+        <button type="button" class="btn-secondary" (click)="volver()">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z" fill="currentColor"/>
+          </svg>
+          <span>Cancelar</span>
+        </button>
+        <button type="submit" class="btn-primary" [disabled]="!savingsForm.valid || isSubmitting">
+          <span *ngIf="!isSubmitting">Crear Ahorro Programado</span>
+          <span *ngIf="isSubmitting" class="loading-content">
+            <div class="spinner"></div>
+            Procesando...
+          </span>
+          <svg *ngIf="!isSubmitting" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 5L16 12L9 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

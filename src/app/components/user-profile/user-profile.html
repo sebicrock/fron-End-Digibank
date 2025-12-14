@@ -1,0 +1,575 @@
+<nav class="navbar">
+  <div class="navbar-container">
+    <div class="navbar-left">
+      <button class="menu-toggle" (click)="toggleSidebar()">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 12H21M3 6H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+      </button>
+      <div class="brand">
+        <div class="brand-icon">
+          <div class="mini-card">
+            <div class="mini-chip"></div>
+            <div class="mini-number">••••</div>
+          </div>
+        </div>
+        <span class="brand-text">DigiBank</span>
+      </div>
+    </div>
+
+    <div class="navbar-right">
+      <div class="navbar-time">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
+          <path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+        <span>{{ currentTime }}</span>
+      </div>
+
+      <div class="user-menu">
+        <button class="user-btn">
+          <div class="user-avatar">{{ (nombreUsuario || 'U').charAt(0).toUpperCase() }}</div>
+          <span>{{ nombreUsuario || 'Usuario' }}</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </button>
+        <ul class="dropdown">
+          <div class="dropdown-header">
+            <p>Bienvenido</p>
+            <h4>{{ nombreUsuario || 'Usuario' }}</h4>
+          </div>
+          <li>
+            <a href="#" (click)="$event.preventDefault()">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z"
+                  fill="currentColor" />
+              </svg>
+              Mi Perfil
+            </a>
+          </li>
+          <li>
+            <a href="#" (click)="$event.preventDefault()">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M19.14 12.94C19.18 12.64 19.2 12.33 19.2 12C19.2 11.68 19.18 11.36 19.13 11.06L21.16 9.48C21.34 9.34 21.39 9.07 21.28 8.87L19.36 5.55C19.24 5.33 18.99 5.26 18.77 5.33L16.38 6.29C15.88 5.91 15.35 5.59 14.76 5.35L14.4 2.81C14.36 2.57 14.16 2.4 13.92 2.4H10.08C9.84 2.4 9.65 2.57 9.61 2.81L9.25 5.35C8.66 5.59 8.12 5.92 7.63 6.29L5.24 5.33C5.02 5.25 4.77 5.33 4.65 5.55L2.74 8.87C2.62 9.08 2.66 9.34 2.86 9.48L4.89 11.06C4.84 11.36 4.8 11.69 4.8 12C4.8 12.31 4.82 12.64 4.87 12.94L2.84 14.52C2.66 14.66 2.61 14.93 2.72 15.13L4.64 18.45C4.76 18.67 5.01 18.74 5.23 18.67L7.62 17.71C8.12 18.09 8.65 18.41 9.24 18.65L9.6 21.19C9.65 21.43 9.84 21.6 10.08 21.6H13.92C14.16 21.6 14.36 21.43 14.39 21.19L14.75 18.65C15.34 18.41 15.88 18.09 16.37 17.71L18.76 18.67C18.98 18.75 19.23 18.67 19.35 18.45L21.27 15.13C21.39 14.91 21.34 14.66 21.15 14.52L19.14 12.94ZM12 15.6C10.02 15.6 8.4 13.98 8.4 12C8.4 10.02 10.02 8.4 12 8.4C13.98 8.4 15.6 10.02 15.6 12C15.6 13.98 13.98 15.6 12 15.6Z"
+                  fill="currentColor" />
+              </svg>
+              Configuración
+            </a>
+          </li>
+          <li>
+            <a href="#" (click)="$event.preventDefault()">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M12 22C10.9 22 10 21.1 10 20H14C14 21.1 13.1 22 12 22ZM18 16V11C18 7.93 16.37 5.36 13.5 4.68V4C13.5 3.17 12.83 2.5 12 2.5C11.17 2.5 10.5 3.17 10.5 4V4.68C7.64 5.36 6 7.92 6 11V16L4 18V19H20V18L18 16Z"
+                  fill="currentColor" />
+              </svg>
+              Notificaciones
+              <span class="notification-badge">3</span>
+            </a>
+          </li>
+          <div class="dropdown-divider"></div>
+          <li>
+            <a href="#" class="logout-link" (click)="$event.preventDefault()">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M17 8L15.59 9.41L17.17 11H9V13H17.17L15.59 14.59L17 16L21 12L17 8ZM5 5H12V3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H12V19H5V5Z"
+                  fill="currentColor" />
+              </svg>
+              Cerrar Sesión
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar" [class.active]="sidebarActive">
+  <div class="sidebar-header">
+    <div class="sidebar-logo">
+      <div class="sidebar-card">
+        <div class="sidebar-chip"></div>
+        <div class="sidebar-number">•••• 9876</div>
+      </div>
+    </div>
+    <h3>Menú Principal</h3>
+    <p>Gestiona todos tus productos</p>
+  </div>
+  <ul class="sidebar-menu">
+    <li class="menu-category">Dashboard</li>
+    <li>
+      <a (click)="volverAlDashboard()" style="cursor: pointer;" [class.active]="vistaActual === 'dashboard'">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 13H11V3H3V13ZM3 21H11V15H3V21ZM13 21H21V11H13V21ZM13 3V9H21V3H13Z" fill="currentColor" />
+        </svg>
+        Inicio
+      </a>
+    </li>
+
+    <li class="menu-category">Cuentas</li>
+    <li>
+      <a (click)="irAFormularioAhorro()" style="cursor: pointer;" [class.active]="vistaActual === 'ahorro'">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M21 18V19C21 20.1 20.1 21 19 21H5C3.89 21 3 20.1 3 19V5C3 3.9 3.89 3 5 3H19C20.1 3 21 3.9 21 5V6H12C10.89 6 10 6.9 10 8V16C10 17.1 10.89 18 12 18H21ZM12 16H22V8H12V16ZM16 13.5C15.17 13.5 14.5 12.83 14.5 12C14.5 11.17 15.17 10.5 16 10.5C16.83 10.5 17.5 11.17 17.5 12C17.5 12.83 16.83 13.5 16 13.5Z"
+            fill="currentColor" />
+        </svg>
+        Cuenta de Ahorros
+        <span class="menu-badge green">Nueva</span>
+      </a>
+    </li>
+    <li>
+      <a (click)="irAFormularioAhorroProgramado()" style="cursor: pointer;"
+        [class.active]="vistaActual === 'ahorroProgramado'">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M11.8 10.9C9.53 10.31 8.8 9.7 8.8 8.75C8.8 7.66 9.81 6.9 11.5 6.9C12.91 6.9 13.5 7.5 13.6 8.35H15.45C15.34 6.85 14.4 5.55 12.5 5.16V3.5H10.5V5.15C8.63 5.52 7.2 6.71 7.2 8.79C7.2 11.15 8.9 12.14 11.7 12.82C14.2 13.43 14.8 14.16 14.8 15.09C14.8 15.79 14.39 16.9 11.5 16.9C9.44 16.9 8.63 16.18 8.5 15.35H6.55C6.69 17.19 8.08 18.42 10.5 18.83V20.5H12.5V18.84C14.38 18.53 15.8 17.45 15.8 15.09C15.8 12.2 13.87 11.49 11.8 10.9Z"
+            fill="currentColor" />
+        </svg>
+        Ahorro Programado
+        <span class="menu-badge blue">Popular</span>
+      </a>
+    </li>
+    <li>
+      <a href="#" (click)="$event.preventDefault()">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M4 6H2V20C2 21.1 2.9 22 4 22H18V20H4V6ZM20 2H8C6.9 2 6 2.9 6 4V16C6 17.1 6.9 18 8 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2ZM20 16H8V4H20V16ZM10 9H18V11H10V9ZM10 12H14V14H10V12ZM10 6H18V8H10V6Z"
+            fill="currentColor" />
+        </svg>
+        Mis Cuentas
+      </a>
+    </li>
+
+    <li class="menu-category">Productos Financieros</li>
+    <li>
+      <a (click)="irAFormularioPrestamo()" style="cursor: pointer;" [class.active]="vistaActual === 'prestamo'">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M20 4H4C2.89 4 2.01 4.89 2.01 6L2 18C2 19.11 2.89 20 4 20H20C21.11 20 22 19.11 22 18V6C22 4.89 21.11 4 20 4ZM20 18H4V12H20V18ZM20 8H4V6H20V8Z"
+            fill="currentColor" />
+        </svg>
+        Solicitar Préstamo
+        <span class="menu-badge">Nuevo</span>
+      </a>
+    </li>
+    <li>
+      <a (click)="irAFormularioCdts()" style="cursor: pointer;" [class.active]="vistaActual === 'cdts'">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 8H4V6H20V8ZM18 2H6V4H18V2ZM22 10V22H2V10H22ZM11 17V12H4V17H11ZM20 17V12H13V17H20Z"
+            fill="currentColor" />
+        </svg>
+        Abrir CDT
+      </a>
+    </li>
+    <li>
+      <a (click)="irAFormularioTarjetas()" style="cursor: pointer;" [class.active]="vistaActual === 'tarjetas'">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M20 4H4C2.89 4 2.01 4.89 2.01 6L2 18C2 19.11 2.89 20 4 20H20C21.11 20 22 19.11 22 18V6C22 4.89 21.11 4 20 4ZM20 18H4V12H20V18ZM20 8H4V6H20V8Z"
+            fill="currentColor" />
+        </svg>
+        Tarjeta de Crédito
+      </a>
+    </li>
+    <li>
+      <a (click)="irAFormularioSeguros()" style="cursor: pointer;" [class.active]="vistaActual === 'seguros'">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V15H13V17ZM13 13H11V7H13V13Z"
+            fill="currentColor" />
+        </svg>
+        Seguros
+      </a>
+    </li>
+    <li class="menu-category">Transacciones</li>
+    <li>
+
+      <a href="#" (click)="preventDefault($event)">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V15H13V17ZM13 13H11V7H13V13Z"
+            fill="currentColor" />
+        </svg>
+        Seguros
+      </a>
+
+
+
+    </li>
+    <li>
+      <a (click)="abrirDetallePagoServicios(pagoData.empresa)">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M19 14V6C19 4.9 18.1 4 17 4H3C1.9 4 1 4.9 1 6V14C1 15.1 1.9 16 3 16H17C18.1 16 19 15.1 19 14ZM17 14H3V6H17V14ZM10 7C8.34 7 7 8.34 7 10C7 11.66 8.34 13 10 13C11.66 13 13 11.66 13 10C13 8.34 11.66 7 10 7ZM23 7V18C23 19.1 22.1 20 21 20H4C4 18.9 4.9 18 6 18H21V7C22.1 7 23 7.9 23 7Z"
+            fill="currentColor" />
+        </svg>
+        Pagar Servicios
+      </a>
+    </li>
+    <li>
+      <a href="#" (click)="$event.preventDefault()">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M13 2.05V4.03C17.39 4.59 20.5 8.58 19.95 12.97C19.5 16.61 16.64 19.5 13 19.93V21.93C18.5 21.38 22.5 16.5 21.95 11C21.5 6.25 17.73 2.5 13 2.05ZM11 2.06C9.05 2.25 7.19 3 5.67 4.26L7.1 5.74C8.22 4.84 9.57 4.26 11 4.06V2.06ZM4.26 5.67C3 7.19 2.25 9.04 2.05 11H4.05C4.24 9.58 4.8 8.23 5.69 7.1L4.26 5.67ZM2.06 13C2.26 14.96 3.03 16.81 4.27 18.33L5.69 16.9C4.81 15.77 4.24 14.42 4.06 13H2.06ZM7.1 18.37L5.67 19.74C7.18 21 9.04 21.79 11 22V20C9.58 19.82 8.23 19.25 7.1 18.37ZM12.5 7V12.25L17 14.92L16.25 16.15L11 13V7H12.5Z"
+            fill="currentColor" />
+        </svg>
+        Historial
+      </a>
+    </li>
+
+    <li class="menu-category">Ayuda</li>
+    <li>
+      <a href="#" (click)="$event.preventDefault()">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M20 2H4C2.9 2 2.01 2.9 2.01 4L2 22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2ZM13 14H11V12H13V14ZM13 10H11V6H13V10Z"
+            fill="currentColor" />
+        </svg>
+        Soporte
+      </a>
+    </li>
+    <li>
+      <a href="#" (click)="$event.preventDefault()">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M11 18H13V16H11V18ZM12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20ZM12 6C9.79 6 8 7.79 8 10H10C10 8.9 10.9 8 12 8C13.1 8 14 8.9 14 10C14 12 11 11.75 11 15H13C13 12.75 16 12.5 16 10C16 7.79 14.21 6 12 6Z"
+            fill="currentColor" />
+        </svg>
+        Preguntas Frecuentes
+      </a>
+    </li>
+  </ul>
+</aside>
+
+<!-- OVERLAY -->
+<div class="overlay" [class.active]="sidebarActive" (click)="toggleSidebar()"></div>
+
+<!-- DASHBOARD -->
+<div class="main-wrapper" [class.shifted]="sidebarActive" *ngIf="vistaActual === 'dashboard'">
+  <div class="main-container">
+    <!-- WELCOME BANNER -->
+    <div class="welcome-banner">
+      <div class="welcome-content">
+        <div class="welcome-text">
+          <h2>¡Bienvenido de nuevo, {{ nombreUsuario || 'Usuario' }}!</h2>
+          <p>Administra tus productos bancarios y realiza operaciones de forma segura</p>
+        </div>
+        <div class="quick-actions">
+          <button class="quick-btn" (click)="irAformularioTransacciones()"
+            [class.active]="vistaActual === TRANSACCIONES">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M20 12L16 8V11H4V13H16V16L20 12Z" fill="currentColor" />
+            </svg>
+            <span>Nueva Transferencia</span>
+          </button>
+
+          <button class="quick-btn">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M19 14V6C19 4.9 18.1 4 17 4H3C1.9 4 1 4.9 1 6V14C1 15.1 1.9 16 3 16H17C18.1 16 19 15.1 19 14Z"
+                fill="currentColor" />
+            </svg>
+            <span>Pagar Servicios</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUMMARY CARDS -->
+    <div class="cards-grid">
+      <div class="summary-card">
+        <div class="card-header">
+          <span class="card-title">Saldo Total</span>
+          <div class="card-icon icon-blue">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13.41 18.09V20H10.74V18.07C9.03 17.71 7.58 16.61 7.5 14.67H9.75C9.82 15.74 10.59 16.42 12.07 16.42C13.71 16.42 14.19 15.56 14.19 14.97C14.19 14.22 13.71 13.54 11.94 13.12C9.61 12.59 7.5 11.79 7.5 9.5C7.5 7.73 8.86 6.42 10.74 6.05V4H13.41V6.07C15.35 6.42 16.37 7.74 16.43 9.5H14.19C14.15 8.36 13.46 7.73 12.07 7.73C10.59 7.73 9.95 8.38 9.95 9.23C9.95 9.93 10.43 10.5 12.25 10.95C14.07 11.4 16.64 12.03 16.64 14.97C16.63 16.83 15.38 17.93 13.41 18.09Z"
+                fill="currentColor" />
+            </svg>
+          </div>
+        </div>
+        <div class="card-amount">$15,234,560</div>
+        <div class="card-change positive">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M7 14L12 9L17 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+          12.5% vs mes anterior
+        </div>
+      </div>
+
+      <div class="summary-card">
+        <div class="card-header">
+          <span class="card-title">Ingresos del Mes</span>
+          <div class="card-icon icon-green">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7 11H9V17H7V11ZM11 7H13V17H11V7ZM15 13H17V17H15V13Z" fill="currentColor" />
+              <path
+                d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM19 19H5V5H19V19Z"
+                fill="currentColor" />
+            </svg>
+          </div>
+        </div>
+        <div class="card-amount">$8,450,000</div>
+        <div class="card-change positive">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M7 14L12 9L17 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+          8.2% vs mes anterior
+        </div>
+      </div>
+
+      <div class="summary-card">
+        <div class="card-header">
+          <span class="card-title">Gastos del Mes</span>
+          <div class="card-icon icon-purple">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M20 4H4C2.89 4 2.01 4.89 2.01 6L2 18C2 19.11 2.89 20 4 20H20C21.11 20 22 19.11 22 18V6C22 4.89 21.11 4 20 4ZM20 18H4V12H20V18ZM20 8H4V6H20V8Z"
+                fill="currentColor" />
+            </svg>
+          </div>
+        </div>
+        <div class="card-amount">$3,120,450</div>
+        <div class="card-change negative">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M17 10L12 15L7 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+          3.5% vs mes anterior
+        </div>
+      </div>
+
+      <div class="summary-card">
+        <div class="card-header">
+          <span class="card-title">Préstamos Activos</span>
+          <div class="card-icon icon-orange">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M4 6H2V20C2 21.1 2.9 22 4 22H18V20H4V6ZM20 2H8C6.9 2 6 2.9 6 4V16C6 17.1 6.9 18 8 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2ZM19 11H17V13H15V11H13V9H15V7H17V9H19V11Z"
+                fill="currentColor" />
+            </svg>
+          </div>
+        </div>
+        <div class="card-amount">2</div>
+        <div class="card-info">Cuota mensual: $580,000</div>
+      </div>
+    </div>
+
+    <!-- SERVICES SECTION -->
+    <div class="section-header">
+      <h3 class="section-title">Accesos Rápidos</h3>
+      <a href="#" class="view-all" (click)="$event.preventDefault()">
+        Ver todos
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 5L16 12L9 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
+      </a>
+    </div>
+
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 12L16 8V11H4V13H16V16L20 12Z" fill="currentColor" />
+          </svg>
+        </div>
+        <div class="service-title">Transferir</div>
+        <div class="service-desc">Envía dinero a otras cuentas</div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M19 14V6C19 4.9 18.1 4 17 4H3C1.9 4 1 4.9 1 6V14C1 15.1 1.9 16 3 16H17C18.1 16 19 15.1 19 14ZM17 14H3V6H17V14ZM10 7C8.34 7 7 8.34 7 10C7 11.66 8.34 13 10 13C11.66 13 13 11.66 13 10C13 8.34 11.66 7 10 7ZM23 7V18C23 19.1 22.1 20 21 20H4C4 18.9 4.9 18 6 18H21V7C22.1 7 23 7.9 23 7Z"
+              fill="currentColor" />
+          </svg>
+        </div>
+        <div class="service-title">Pagar</div>
+        <div class="service-desc">Servicios públicos y más</div>
+      </div>
+
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M21 18V19C21 20.1 20.1 21 19 21H5C3.89 21 3 20.1 3 19V5C3 3.9 3.89 3 5 3H19C20.1 3 21 3.9 21 5V6H12C10.89 6 10 6.9 10 8V16C10 17.1 10.89 18 12 18H21ZM12 16H22V8H12V16ZM16 13.5C15.17 13.5 14.5 12.83 14.5 12C14.5 11.17 15.17 10.5 16 10.5C16.83 10.5 17.5 11.17 17.5 12C17.5 12.83 16.83 13.5 16 13.5Z"
+              fill="currentColor" />
+          </svg>
+        </div>
+        <div class="service-title">Recargar</div>
+        <div class="service-desc">Celular y paquetes</div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M20 4H4C2.89 4 2.01 4.89 2.01 6L2 18C2 19.11 2.89 20 4 20H20C21.11 20 22 19.11 22 18V6C22 4.89 21.11 4 20 4ZM20 18H4V12H20V18ZM20 8H4V6H20V8Z"
+              fill="currentColor" />
+          </svg>
+        </div>
+        <div class="service-title">Préstamos</div>
+        <div class="service-desc">Solicita crédito rápido</div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M11.8 10.9C9.53 10.31 8.8 9.7 8.8 8.75C8.8 7.66 9.81 6.9 11.5 6.9C12.91 6.9 13.5 7.5 13.6 8.35H15.45C15.34 6.85 14.4 5.55 12.5 5.16V3.5H10.5V5.15C8.63 5.52 7.2 6.71 7.2 8.79C7.2 11.15 8.9 12.14 11.7 12.82C14.2 13.43 14.8 14.16 14.8 15.09C14.8 15.79 14.39 16.9 11.5 16.9C9.44 16.9 8.63 16.18 8.5 15.35H6.55C6.69 17.19 8.08 18.42 10.5 18.83V20.5H12.5V18.84C14.38 18.53 15.8 17.45 15.8 15.09C15.8 12.2 13.87 11.49 11.8 10.9Z"
+              fill="currentColor" />
+          </svg>
+        </div>
+        <div class="service-title">Inversiones</div>
+        <div class="service-desc">CDT y ahorro programado</div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V15H13V17ZM13 13H11V7H13V13Z"
+              fill="currentColor" />
+          </svg>
+        </div>
+        <div class="service-title">Seguros</div>
+        <div class="service-desc">Protege lo que más quieres</div>
+      </div>
+    </div>
+
+    <!-- RECENT ACTIVITY -->
+    <div class="section-header">
+      <h3 class="section-title">Actividad Reciente</h3>
+      <a href="#" class="view-all" (click)="$event.preventDefault()">
+        Ver todo
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 5L16 12L9 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
+      </a>
+    </div>
+
+    <div class="activity-section">
+      <ul class="activity-list">
+        <li class="activity-item">
+          <div class="activity-icon icon-green">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor" />
+            </svg>
+          </div>
+          <div class="activity-info">
+            <div class="activity-title">Transferencia recibida</div>
+            <div class="activity-date">Hoy, 10:30 AM</div>
+          </div>
+          <div class="activity-amount amount-positive">+$500,000</div>
+        </li>
+
+        <li class="activity-item">
+          <div class="activity-icon icon-purple">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19 14V6C19 4.9 18.1 4 17 4H3C1.9 4 1 4.9 1 6V14C1 15.1 1.9 16 3 16H17C18.1 16 19 15.1 19 14Z"
+                fill="currentColor" />
+            </svg>
+          </div>
+          <div class="activity-info">
+            <div class="activity-title">Pago de servicio - Internet</div>
+            <div class="activity-date">Ayer, 3:45 PM</div>
+          </div>
+          <div class="activity-amount amount-negative">-$85,000</div>
+        </li>
+
+        <li class="activity-item">
+          <div class="activity-icon icon-orange">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20 12L16 8V11H4V13H16V16L20 12Z" fill="currentColor" />
+            </svg>
+          </div>
+          <div class="activity-info">
+            <div class="activity-title">Transferencia enviada</div>
+            <div class="activity-date">23 Oct, 11:20 AM</div>
+          </div>
+          <div class="activity-amount amount-negative">-$250,000</div>
+        </li>
+
+        <li class="activity-item">
+          <div class="activity-icon icon-blue">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M11.8 10.9C9.53 10.31 8.8 9.7 8.8 8.75C8.8 7.66 9.81 6.9 11.5 6.9C12.91 6.9 13.5 7.5 13.6 8.35H15.45C15.34 6.85 14.4 5.55 12.5 5.16V3.5H10.5V5.15C8.63 5.52 7.2 6.71 7.2 8.79C7.2 11.15 8.9 12.14 11.7 12.82C14.2 13.43 14.8 14.16 14.8 15.09C14.8 15.79 14.39 16.9 11.5 16.9C9.44 16.9 8.63 16.18 8.5 15.35H6.55C6.69 17.19 8.08 18.42 10.5 18.83V20.5H12.5V18.84C14.38 18.53 15.8 17.45 15.8 15.09C15.8 12.2 13.87 11.49 11.8 10.9Z"
+                fill="currentColor" />
+            </svg>
+          </div>
+          <div class="activity-info">
+            <div class="activity-title">Intereses CDT</div>
+            <div class="activity-date">20 Oct, 9:00 AM</div>
+          </div>
+          <div class="activity-amount amount-positive">+$125,500</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- FORMULARIO DE AHORRO -->
+<div *ngIf="vistaActual === 'ahorro'">
+  <app-demand-savings-form (volverClick)="volverAlDashboard()" (irACuenta)="abrirDetalleCuenta($event)">
+  </app-demand-savings-form>
+</div>
+
+
+<!-- FORMULARIO DE AHORRO PROGRAMADO -->
+<div *ngIf="vistaActual === 'ahorroProgramado'">
+  <app-scheduled-savings-form (volverClick)="volverAlDashboard()" (irACuenta)="abrirDetalleCuenta($event)">
+  </app-scheduled-savings-form>
+</div>
+
+<!-- DETALLE DE CUENTA (solo se renderiza si hay número válido) -->
+<div *ngIf="vistaActual === 'detalle' && numeroCuentaSeleccionada !== null">
+  <app-cuenta-detalle [numeroCuenta]="numeroCuentaSeleccionada" (volverClick)="cerrarDetalleCuenta()">
+  </app-cuenta-detalle>
+</div>
+
+<!-- FORMULARIO DE PRESTAMO-->
+<div *ngIf="vistaActual === 'prestamo'">
+  <app-loan-request-form (volverClick)="volverAlDashboard()" (irAPrestamo)="abrirDetalleDePrestamo($event)">
+  </app-loan-request-form>
+</div>
+
+<!-- FORMULARIO DE CDT's-->
+<div *ngIf="vistaActual === 'cdts'">
+  <app-cdt-form (volverClick)="volverAlDashboard()" (irACDT)="abrirDetalleCdts($event)">
+  </app-cdt-form>
+</div>
+
+<!-- FORMULARIO DE TARJETAS-->
+
+<div *ngIf="vistaActual === 'tarjetas'">
+  <app-credit-card-form (volverClick)="volverAlDashboard()" (irATarjeta)="abrirDetalleTarjetas($event)">
+  </app-credit-card-form>
+</div>
+
+<!-- FORMULARIO DE SEGUROS-->
+
+<div *ngIf="vistaActual === 'seguros'">
+  <app-insurance-form (volverClick)="volverAlDashboard()" (seguroContratado)="abrirDetalleDeSeguro($event)">
+  </app-insurance-form>
+</div>
+
+<!-- FORMULARIO DE TRANSACCIONES-->
+<div *ngIf="vistaActual === 'transacciones'">
+  <app-transfer-form (volverClick)="volverAlDashboard()" (transferenciaExitosa)="abrirDetalleDetransaccion($event)">
+  </app-transfer-form>
+</div>
+
+<!-- FORMULARIO PAGO DE SERVICIOS -->
+ <div *ngIf="vistaActual === 'transacciones'">
+  <app-service-payment (volverClick)="volverAlDashboard()" (irFormularioPAgoServicios)="abrirDetallePagoServicios($event)">
+  </app-service-payment>
+</div>

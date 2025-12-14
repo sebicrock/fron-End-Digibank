@@ -1,0 +1,277 @@
+<div class="transfer-wrapper">
+  <div class="transfer-container">
+    <!-- HEADER -->
+    <div class="transfer-header">
+      <button class="btn-back" (click)="volver()">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Volver
+      </button>
+      <div class="header-content">
+        <div class="header-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 12L16 8V11H4V13H16V16L20 12Z" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="header-text">
+          <h1>Nueva Transferencia</h1>
+          <p>Envía dinero de forma segura a otras cuentas</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- MENSAJES DE ALERTA -->
+    <div *ngIf="mensajeExito" class="alert alert-success">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+      </svg>
+      <div class="alert-content">
+        <strong>¡Transferencia exitosa!</strong>
+        <p>{{ mensajeExito }}</p>
+      </div>
+    </div>
+
+    <div *ngIf="mensajeError" class="alert alert-error">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V15H13V17ZM13 13H11V7H13V13Z" fill="currentColor"/>
+      </svg>
+      <div class="alert-content">
+        <strong>Error en la transferencia</strong>
+        <p>{{ mensajeError }}</p>
+      </div>
+    </div>
+
+    <!-- SECCIÓN DE CUENTAS ORIGEN -->
+    <div class="form-section">
+      <div class="section-title">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M21 18V19C21 20.1 20.1 21 19 21H5C3.89 21 3 20.1 3 19V5C3 3.9 3.89 3 5 3H19C20.1 3 21 3.9 21 5V6H12C10.89 6 10 6.9 10 8V16C10 17.1 10.89 18 12 18H21ZM12 16H22V8H12V16ZM16 13.5C15.17 13.5 14.5 12.83 14.5 12C14.5 11.17 15.17 10.5 16 10.5C16.83 10.5 17.5 11.17 17.5 12C17.5 12.83 16.83 13.5 16 13.5Z" fill="currentColor"/>
+        </svg>
+        <h2>Cuenta de Origen</h2>
+      </div>
+
+      <div *ngIf="cargandoCuentas" class="loading-state">
+        <div class="spinner"></div>
+        <p>Cargando tus cuentas...</p>
+      </div>
+
+      <div *ngIf="!cargandoCuentas && cuentasOrigen.length === 0" class="empty-state">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V15H13V17ZM13 13H11V7H13V13Z" fill="currentColor"/>
+        </svg>
+        <p>No tienes cuentas disponibles para transferir</p>
+      </div>
+
+      <div *ngIf="!cargandoCuentas && cuentasOrigen.length > 0" class="accounts-grid">
+        <div *ngFor="let cuenta of cuentasOrigen" 
+             class="account-card"
+             [class.selected]="cuentaOrigenSeleccionada?.numeroCuenta === cuenta.numeroCuenta"
+             (click)="seleccionarCuentaOrigen(cuenta)">
+          <div class="account-header">
+            <div class="account-type">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21 18V19C21 20.1 20.1 21 19 21H5C3.89 21 3 20.1 3 19V5C3 3.9 3.89 3 5 3H19C20.1 3 21 3.9 21 5V6H12C10.89 6 10 6.9 10 8V16C10 17.1 10.89 18 12 18H21Z" fill="currentColor"/>
+              </svg>
+              <span>{{ cuenta.tipoCuenta }}</span>
+            </div>
+            <div class="account-check" *ngIf="cuentaOrigenSeleccionada?.numeroCuenta === cuenta.numeroCuenta">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+              </svg>
+            </div>
+          </div>
+          <div class="account-number">•••• {{ cuenta.numeroCuenta.toString().slice(-4) }}</div>
+          <div class="account-balance">{{ cuenta.saldo | currency:'COP':'symbol-narrow':'1.0-0' }}</div>
+          <div class="account-label">Saldo disponible</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FORMULARIO DE TRANSFERENCIA -->
+    <form *ngIf="cuentaOrigenSeleccionada" [formGroup]="transferForm" (ngSubmit)="realizarTransferencia()" class="transfer-form">
+      
+      <!-- TIPO DE TRANSFERENCIA -->
+      <div class="form-section">
+        <div class="section-title">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L2 7V12C2 17.55 6.84 22.54 12 23.5C17.16 22.54 22 17.55 22 12V7L12 2ZM12 11V5.48L19.5 9.5V12C19.5 14.9 17.89 17.54 15.5 19L12 21.26V13H8L12 11Z" fill="currentColor"/>
+          </svg>
+          <h2>Tipo de Transferencia</h2>
+        </div>
+
+        <div class="transfer-types">
+          <label class="type-option" [class.selected]="transferForm.get('tipoTransferencia')?.value === 'PROPIA'">
+            <input type="radio" formControlName="tipoTransferencia" value="PROPIA">
+            <div class="type-content">
+              <div class="type-icon icon-blue">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z" fill="currentColor"/>
+                </svg>
+              </div>
+              <div class="type-info">
+                <h3>Entre mis cuentas</h3>
+                <p>Transfiere entre tus propias cuentas</p>
+              </div>
+            </div>
+          </label>
+
+          <label class="type-option" [class.selected]="transferForm.get('tipoTransferencia')?.value === 'TERCERO'">
+            <input type="radio" formControlName="tipoTransferencia" value="TERCERO">
+            <div class="type-content">
+              <div class="type-icon icon-green">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M16 11C17.66 11 18.99 9.66 18.99 8C18.99 6.34 17.66 5 16 5C14.34 5 13 6.34 13 8C13 9.66 14.34 11 16 11ZM8 11C9.66 11 10.99 9.66 10.99 8C10.99 6.34 9.66 5 8 5C6.34 5 5 6.34 5 8C5 9.66 6.34 11 8 11ZM8 13C5.67 13 1 14.17 1 16.5V19H15V16.5C15 14.17 10.33 13 8 13ZM16 13C15.71 13 15.38 13.02 15.03 13.05C16.19 13.89 17 15.02 17 16.5V19H23V16.5C23 14.17 18.33 13 16 13Z" fill="currentColor"/>
+                </svg>
+              </div>
+              <div class="type-info">
+                <h3>A terceros</h3>
+                <p>Envía dinero a otras personas</p>
+              </div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- CUENTA DESTINO -->
+      <div class="form-section">
+        <div class="section-title">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 4H4C2.89 4 2.01 4.89 2.01 6L2 18C2 19.11 2.89 20 4 20H20C21.11 20 22 19.11 22 18V6C22 4.89 21.11 4 20 4ZM20 18H4V12H20V18ZM20 8H4V6H20V8Z" fill="currentColor"/>
+          </svg>
+          <h2>Cuenta Destino</h2>
+        </div>
+
+        <div class="form-group">
+          <label for="numeroCuentaDestino">Número de Cuenta</label>
+          <input 
+            type="text" 
+            id="numeroCuentaDestino"
+            formControlName="numeroCuentaDestino"
+            placeholder="Ingrese el número de cuenta"
+            (blur)="validarCuentaDestino()"
+            [class.error]="transferForm.get('numeroCuentaDestino')?.invalid && transferForm.get('numeroCuentaDestino')?.touched">
+          <div *ngIf="transferForm.get('numeroCuentaDestino')?.invalid && transferForm.get('numeroCuentaDestino')?.touched" class="error-message">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V15H13V17ZM13 13H11V7H13V13Z" fill="currentColor"/>
+            </svg>
+            El número de cuenta es requerido
+          </div>
+        </div>
+
+        <div *ngIf="validandoCuenta" class="validation-loading">
+          <div class="spinner-small"></div>
+          <span>Validando cuenta...</span>
+        </div>
+
+        <div *ngIf="cuentaDestinoValida && !validandoCuenta" class="validation-success">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+          </svg>
+          <span>Cuenta válida: {{ nombreDestinatario }}</span>
+        </div>
+      </div>
+
+      <!-- MONTO Y DESCRIPCIÓN -->
+      <div class="form-section">
+        <div class="section-title">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11.8 10.9C9.53 10.31 8.8 9.7 8.8 8.75C8.8 7.66 9.81 6.9 11.5 6.9C12.91 6.9 13.5 7.5 13.6 8.35H15.45C15.34 6.85 14.4 5.55 12.5 5.16V3.5H10.5V5.15C8.63 5.52 7.2 6.71 7.2 8.79C7.2 11.15 8.9 12.14 11.7 12.82C14.2 13.43 14.8 14.16 14.8 15.09C14.8 15.79 14.39 16.9 11.5 16.9C9.44 16.9 8.63 16.18 8.5 15.35H6.55C6.69 17.19 8.08 18.42 10.5 18.83V20.5H12.5V18.84C14.38 18.53 15.8 17.45 15.8 15.09C15.8 12.2 13.87 11.49 11.8 10.9Z" fill="currentColor"/>
+          </svg>
+          <h2>Detalles de la Transferencia</h2>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="monto">Monto a Transferir</label>
+            <div class="input-with-icon">
+              <span class="input-icon">$</span>
+              <input 
+                type="text" 
+                id="monto"
+                formControlName="monto"
+                placeholder="0"
+                (input)="formatearMonto($event)"
+                [class.error]="transferForm.get('monto')?.invalid && transferForm.get('monto')?.touched">
+            </div>
+            <div *ngIf="transferForm.get('monto')?.invalid && transferForm.get('monto')?.touched" class="error-message">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V15H13V17ZM13 13H11V7H13V13Z" fill="currentColor"/>
+              </svg>
+              <span *ngIf="transferForm.get('monto')?.hasError('required')">El monto es requerido</span>
+              <span *ngIf="transferForm.get('monto')?.hasError('min')">El monto mínimo es $1,000</span>
+              <span *ngIf="transferForm.get('monto')?.hasError('max')">El monto excede tu saldo disponible</span>
+            </div>
+            <div class="helper-text">Saldo disponible: {{ cuentaOrigenSeleccionada?.saldo | currency:'COP':'symbol-narrow':'1.0-0' }}</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="descripcion">Descripción (Opcional)</label>
+          <textarea 
+            id="descripcion"
+            formControlName="descripcion"
+            rows="3"
+            placeholder="Ej: Pago arriendo, préstamo, etc."
+            maxlength="200"></textarea>
+          <div class="character-count">{{ transferForm.get('descripcion')?.value?.length || 0 }}/200</div>
+        </div>
+      </div>
+
+      <!-- RESUMEN DE TRANSFERENCIA -->
+      <div *ngIf="transferForm.valid && cuentaDestinoValida" class="summary-section">
+        <div class="summary-header">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM19 19H5V5H19V19ZM7 10H9V17H7V10ZM11 7H13V17H11V7ZM15 13H17V17H15V13Z" fill="currentColor"/>
+          </svg>
+          <h3>Resumen de Transferencia</h3>
+        </div>
+        
+        <div class="summary-content">
+          <div class="summary-row">
+            <span class="summary-label">Desde:</span>
+            <span class="summary-value">•••• {{ (cuentaOrigenSeleccionada?.numeroCuenta ? cuentaOrigenSeleccionada.numeroCuenta.toString().slice(-4) : '0000') }}</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-label">Hacia:</span>
+            <span class="summary-value">•••• {{ transferForm.get('numeroCuentaDestino')?.value?.slice(-4) }}</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-label">Beneficiario:</span>
+            <span class="summary-value">{{ nombreDestinatario }}</span>
+          </div>
+          <div class="summary-row highlight">
+            <span class="summary-label">Monto:</span>
+            <span class="summary-value amount">{{ obtenerMontoNumerico() | currency:'COP':'symbol-narrow':'1.0-0' }}</span>
+          </div>
+          <div class="summary-row" *ngIf="transferForm.get('descripcion')?.value">
+            <span class="summary-label">Descripción:</span>
+            <span class="summary-value">{{ transferForm.get('descripcion')?.value }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOTONES DE ACCIÓN -->
+      <div class="form-actions">
+        <button type="button" class="btn btn-secondary" (click)="cancelar()" [disabled]="procesando">
+          Cancelar
+        </button>
+        <button 
+          type="submit" 
+          class="btn btn-primary" 
+          [disabled]="transferForm.invalid || !cuentaDestinoValida || procesando">
+          <span *ngIf="!procesando">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+            </svg>
+            Realizar Transferencia
+          </span>
+          <span *ngIf="procesando">
+            <div class="spinner-small"></div>
+            Procesando...
+          </span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
